@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "voltex_pico")(type "KiCad")(uri "${KIPRJMOD}/voltex_pico.kicad_sym")(options "")(descr ""))
+)
