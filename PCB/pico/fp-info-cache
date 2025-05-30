@@ -1,4 +1,4 @@
-24823200334508366
+24824978018424524
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -99811,7 +99811,7 @@ Through hole straight pin header, 1x05, 2.54mm pitch, single row
 Through hole pin header THT 1x05 2.54mm single row
 0
 6
-5
+6
 voltex_pico
 WS2812B-1204
 
@@ -99828,6 +99828,13 @@ WS2812B-1615
 4
 voltex_pico
 WS2812B-2835
+
+
+0
+4
+4
+voltex_pico
+WS2812B-2835_EMBED
 
 
 0
