@@ -660,7 +660,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "../../Production/PCB/voltex_pico/",
+      "plot": "../../Production/PCB/pico/",
       "pos_files": "../../Production/PCB/voltex_pico/",
       "specctra_dsn": "",
       "step": "voltex_pico_3d.step",
