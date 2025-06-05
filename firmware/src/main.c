@@ -94,7 +94,7 @@ static void hid_update()
         buttons |= 0x80; // combine internal and external pedal
     }
     hid_report.buttons = buttons & 0xff;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 2; i++) {
         hid_report.joy[i] = spin_units(i);
     }
     if (tud_hid_ready()) {

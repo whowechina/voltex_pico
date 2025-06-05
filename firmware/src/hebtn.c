@@ -150,7 +150,7 @@ static void read_sensors_avg(uint16_t avg[KEY_NUM])
     for (int i = 0; i < avg_count; i++) {
         for (int j = 0; j < KEY_NUM; j++) {
             select_channel(j);
-            sleep_us(2);
+            sleep_us(5);
             read_sensor(j);
             sum[j] += reading[j];
         }
@@ -158,23 +158,6 @@ static void read_sensors_avg(uint16_t avg[KEY_NUM])
     for (int i = 0; i < KEY_NUM; i++) {
         avg[i] = sum[i] / avg_count;
     }
-}
-
-void hebtn_calibrate_origin()
-{
-    printf("Keep all keys far far away from the sensors.\n");
-    printf("Calibrating origin...\n");
-
-    uint16_t origin[KEY_NUM];
-    read_sensors_avg(origin);
-
-    printf("Done.\n");
-    for (int i = 0; i < KEY_NUM; i++) {
-        voltex_cfg->sensor.origin[i] = origin[i];
-        printf("Key %2d: %4d.\n", i, origin[i]);
-    }
-
-    config_changed();
 }
 
 void hebtn_calibrate_travel()
@@ -232,8 +215,8 @@ void hebtn_calibrate_travel()
     }
 
     for (int i = 0; i < KEY_NUM; i++) {
-        voltex_cfg->baseline[i].released = released[i];
-        voltex_cfg->baseline[i].pressed = pressed[i];
+        voltex_cfg->calibrated[i].up = released[i];
+        voltex_cfg->calibrated[i].down = pressed[i];
         printf("Key %d: %4d -> %4d.\n", i + 1, released[i], pressed[i]);
     }
 

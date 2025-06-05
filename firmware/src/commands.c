@@ -25,20 +25,20 @@ static void disp_light()
     printf("  Level: %d.\n", voltex_cfg->light.level);
 }
 
-static void disp_spin()
+static void disp_knob()
 {
-    printf("[Spin]\n");
-    printf("  Units Per Turn: %d.\n", voltex_cfg->spin.units_per_turn);
+    printf("[Knob]\n");
+    printf("  Units Per Turn: %d.\n", voltex_cfg->knob.units_per_turn);
     for (int i = 0; i < 2; i++) {
-        printf("  Spinner %d: %s, %s.\n", i + 1,
+        printf("  %s Knob: %s, %s.\n", i ? "Right" : "Left",
                spin_present(i) ? "OK" : "ERROR",
-               voltex_cfg->spin.reversed[i] ? "Reversed" : "Forward");
+               voltex_cfg->knob.reversed[i] ? "Reversed" : "Forward");
     }
 }
 
 void handle_display(int argc, char *argv[])
 {
-    const char *usage = "Usage: display [light|spin]\n";
+    const char *usage = "Usage: display [light|knob]\n";
     if (argc > 1) {
         printf(usage);
         return;
@@ -46,17 +46,17 @@ void handle_display(int argc, char *argv[])
 
     if (argc == 0) {
         disp_light();
-        disp_spin();
+        disp_knob();
         return;
     }
 
-    const char *choices[] = {"light", "spin" };
+    const char *choices[] = {"light", "knob" };
     switch (cli_match_prefix(choices, count_of(choices), argv[0])) {
         case 0:
             disp_light();
             break;
         case 1:
-            disp_spin();
+            disp_knob();
             break;
          default:
             printf(usage);
@@ -83,9 +83,9 @@ static void handle_level(int argc, char *argv[])
     disp_light();
 }
 
-static void handle_spin_rate(const char *rate)
+static void handle_knob_rate(const char *rate)
 {
-    const char *usage = "Usage: spin rate <units_per_turn>\n"
+    const char *usage = "Usage: knob rate <units_per_turn>\n"
                         "  units_per_turn: 20..255\n";
     int units = cli_extract_non_neg_int(rate, 0);
     if ((units < 20) || (units > 255)) {
@@ -93,41 +93,42 @@ static void handle_spin_rate(const char *rate)
         return;
     }
 
-    voltex_cfg->spin.units_per_turn = units;
+    voltex_cfg->knob.units_per_turn = units;
     config_changed();
-    disp_spin();
+    disp_knob();
 }
 
-static void handle_spin_invert(int id, const char *dir)
+static void handle_knob_invert(int side, const char *dir)
 {
-    const char *usage = "Usage: spin <id> <forward|reversed>\n"
-                        "  id: 1..5\n";
+    const char *usage = "Usage: knob <left|right> <forward|reversed>\n";
 
     const char *choices[] = {"forward", "reversed"};
     int match = cli_match_prefix(choices, count_of(choices), dir);
+
     if (match < 0) {
         printf(usage);
         return;
     }
 
-    voltex_cfg->spin.reversed[id] = match;
+    if ((side >= 0) && (side < 2)) {
+        voltex_cfg->knob.reversed[side] = match;
+    }
 
     config_changed();
-    disp_spin();
+    disp_knob();
 }
 
-static void handle_spin(int argc, char *argv[])
+static void handle_knob(int argc, char *argv[])
 {
-    const char *usage = "Usage: spin rate <units_per_turn>\n"
-                        "       spin <id> <normal|reverse>\n"
-                        "  units_per_turn: 20..255\n"
-                        "  id: 1..5\n";
+    const char *usage = "Usage: knob rate <units_per_turn>\n"
+                        "       knob <left|right> <normal|reverse>\n"
+                        "  units_per_turn: 20..255\n";
     if (argc != 2) {
         printf(usage);
         return;
     }
 
-    const char *choices[] = { "1", "2", "rate" };
+    const char *choices[] = { "left", "right", "rate" };
     int match = cli_match_prefix(choices, count_of(choices), argv[0]);
     if (match < 0) {
         printf(usage);
@@ -135,34 +136,16 @@ static void handle_spin(int argc, char *argv[])
     }
 
     if (match == 2) {
-        handle_spin_rate(argv[1]);
+        handle_knob_rate(argv[1]);
         return;
     }
 
-    handle_spin_invert(match, argv[1]);
+    handle_knob_invert(match, argv[1]);
 }
 
 static void handle_calibrate(int argc, char *argv[])
 {
-    const char *usage = "Usage: calibrate <origin|travel>\n";
-
-    if (argc != 1) {
-        printf(usage);
-        return;
-    }
-
-    const char *choices[] = {"origin", "travel"};
-    switch (cli_match_prefix(choices, count_of(choices), argv[0])) {
-        case 0:
-            hebtn_calibrate_origin();
-            break;
-        case 1:
-            hebtn_calibrate_travel();
-            break;
-        default:
-            printf(usage);
-            break;
-    }
+    hebtn_calibrate_travel();
 }
 
 static void handle_debug(int argc, char *argv[])
@@ -201,7 +184,7 @@ void commands_init()
 {
     cli_register("display", handle_display, "Display all config.");
     cli_register("level", handle_level, "Set LED brightness level.");
-    cli_register("spin", handle_spin, "Set spin rate.");
+    cli_register("knob", handle_knob, "Set knob rate and direction.");
     cli_register("calibrate", handle_calibrate, "Calibrate the key sensors.");
     cli_register("debug", handle_debug, "Toggle debug features.");
     cli_register("save", handle_save, "Save config to flash.");

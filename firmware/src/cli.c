@@ -21,7 +21,6 @@ static const char *commands[MAX_COMMANDS];
 static const char *helps[MAX_COMMANDS];
 static cmd_handler_t handlers[MAX_COMMANDS];
 static int max_cmd_len = 0;
-
 static int num_commands = 0;
 
 void cli_register(const char *cmd, cmd_handler_t handler, const char *help)
@@ -62,25 +61,24 @@ static void handle_help(int argc, char *argv[])
     printf("%s", cli_logo);
     printf("\tSN: %016llx\n", board_id_64());
     printf("\tBuilt: %s\n\n", built_time);
-    printf("Available commands:\n");
+    printf("Available commands %d:\n", max_cmd_len);
     for (int i = 0; i < num_commands; i++) {
         printf("%*s: %s\n", max_cmd_len + 2, commands[i], helps[i]);
     }
 }
 
 static int fps[2];
-static uint32_t last[2] = {0};
-static int counter[2] = {0};
 
 void cli_fps_count(int core)
 {
+    static uint32_t reset_time[2] = {0};
+    static int counter[2] = {0};
     counter[core]++;
-
     uint32_t now = time_us_32();
-    if (now - last[core] < 1000000) {
+    if (now < reset_time[core]) {
         return;
     }
-    last[core] = now;
+    reset_time[core] = now + 1000000;
     fps[core] = counter[core];
     counter[core] = 0;
 }
@@ -89,7 +87,6 @@ static void handle_fps(int argc, char *argv[])
 {
     printf("FPS: core 0: %d, core 1: %d\n", fps[0], fps[1]);
 }
-
 static void handle_update(int argc, char *argv[])
 {
     printf("Boot into update mode.\n");

@@ -3,7 +3,7 @@
  * WHowe <github.com/whowechina>
  */
 
-#if defined BOARD_voltex_PICO
+#if defined BOARD_VOLTEX_PICO
 
 #define RGB_PIN_MAIN 13
 #define RGB_PIN_LEFT 14

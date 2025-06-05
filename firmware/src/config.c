@@ -12,7 +12,7 @@
 voltex_cfg_t *voltex_cfg;
 
 static voltex_cfg_t default_cfg = {
-    .spin = {
+    .knob = {
         .units_per_turn = 80,
     },
     .light = {
@@ -28,6 +28,10 @@ voltex_runtime_t voltex_runtime;
 
 static void config_loaded()
 {
+    if (voltex_cfg->knob.units_per_turn == 0) {
+        voltex_cfg->knob.units_per_turn = 80;
+        config_changed();
+    }
 }
 
 void config_changed()

@@ -16,16 +16,17 @@ typedef struct {
 
 typedef struct __attribute__((packed)) {
     struct {
-        uint16_t origin[6];
-    } sensor;
+        uint16_t up;
+        uint16_t down;
+    } calibrated[6];
     struct {
-        uint16_t released;
-        uint16_t pressed;
-    } baseline[6];
+        uint8_t on;
+        uint8_t off;
+    } trigger[6];
     struct {
         uint8_t units_per_turn;
-        uint8_t reversed[5];
-    } spin;
+        uint8_t reversed[7];
+    } knob;
     struct {
         bool internal;
         bool external;

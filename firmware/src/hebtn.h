@@ -18,7 +18,6 @@ uint16_t hebtn_velocity(uint8_t chn);
 uint8_t hebtn_analog(uint8_t chn);
 uint16_t hebtn_raw(uint8_t chn);
 
-void hebtn_calibrate_origin();
 void hebtn_calibrate_travel();
 
 #endif

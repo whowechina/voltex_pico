@@ -13,8 +13,8 @@
 #include "hardware/timer.h"
 #include "hardware/pwm.h"
 
-#include "config.h"
 #include "board_defs.h"
+#include "config.h"
 
 #include "tmag5273.h"
 
@@ -41,11 +41,6 @@ void spin_init()
         sleep_us(1000);
         tmag5273_init(i, BUS_I2C);
         tmag5273_init_sensor();
-    }
-
-    if (voltex_cfg->spin.units_per_turn == 0) {
-        voltex_cfg->spin.units_per_turn = 80;
-        config_changed();
     }
 }
 
@@ -75,7 +70,7 @@ void spin_update()
         }
         tmag5273_use(i);
         spin_reading[i] = tmag5273_read_angle();
-        if (voltex_cfg->spin.reversed[i]) {
+        if (voltex_cfg->knob.reversed[i]) {
             spin_reading[i] = FULL_SCALE - spin_reading[i];
         }
     }
@@ -94,6 +89,10 @@ uint16_t spin_units(uint8_t index)
     static uint16_t last[SPIN_NUM] = {0};
     static int counter[SPIN_NUM] = {0};
 
+    if (index >= SPIN_NUM) {
+        return 0;
+    }
+
     int delta = spin_reading[index] - last[index];
     if (delta > FULL_SCALE / 2) {
         delta -= FULL_SCALE;
@@ -101,11 +100,11 @@ uint16_t spin_units(uint8_t index)
         delta += FULL_SCALE;
     }
 
-    int resolution = FULL_SCALE / voltex_cfg->spin.units_per_turn;
+    int resolution = FULL_SCALE / voltex_cfg->knob.units_per_turn;
     if ((delta <= -resolution) || (delta >= resolution)) {
         last[index] = spin_reading[index];
         counter[index] += delta;
     }
 
-    return counter[index] * voltex_cfg->spin.units_per_turn / FULL_SCALE;
+    return counter[index] * voltex_cfg->knob.units_per_turn / FULL_SCALE;
 }
