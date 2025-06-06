@@ -36,9 +36,23 @@ static void disp_knob()
     }
 }
 
+static void disp_hebtn()
+{
+    printf("[Hall Effect Button]\n");
+    for (int i = 0; i < hebtn_keynum(); i++) {
+        if (!hebtn_present(i)) {
+            printf("  Key %d: Not Present.\n", i + 1);
+            continue;
+        }
+        printf("  Key %d: %4d->%4d, On: %2d, Off: %2d.\n",
+               i + 1, voltex_cfg->calibrated.up[i], voltex_cfg->calibrated.down[i],
+                voltex_cfg->trigger.on[i] + 1, voltex_cfg->trigger.off[i] + 1);
+    }
+}
+
 void handle_display(int argc, char *argv[])
 {
-    const char *usage = "Usage: display [light|knob]\n";
+    const char *usage = "Usage: display [light|knob|he]\n";
     if (argc > 1) {
         printf(usage);
         return;
@@ -47,10 +61,11 @@ void handle_display(int argc, char *argv[])
     if (argc == 0) {
         disp_light();
         disp_knob();
+        disp_hebtn();
         return;
     }
 
-    const char *choices[] = {"light", "knob" };
+    const char *choices[] = {"light", "knob", "he" };
     switch (cli_match_prefix(choices, count_of(choices), argv[0])) {
         case 0:
             disp_light();
@@ -58,7 +73,10 @@ void handle_display(int argc, char *argv[])
         case 1:
             disp_knob();
             break;
-         default:
+        case 2:
+            disp_hebtn();
+            break;
+        default:
             printf(usage);
             break;
     }
@@ -145,7 +163,40 @@ static void handle_knob(int argc, char *argv[])
 
 static void handle_calibrate(int argc, char *argv[])
 {
-    hebtn_calibrate_travel();
+    hebtn_calibrate();
+}
+
+static void handle_trigger(int argc, char *argv[])
+{
+    const char *usage = "Usage: trigger <all|KEY> <ON> <OFF>\n"
+                        "  KEY: 1..6\n"
+                        "   ON: 1..36, distance for actuation.\n"
+                        "  OFF: 1..36, distance for reset.\n";
+    if (argc != 3) {
+        printf(usage);
+        return;
+    }
+
+    bool all_key = (strncasecmp(argv[0], "all", strlen(argv[0])) == 0);
+    int key = cli_extract_non_neg_int(argv[0], 0) - 1;
+    int on = cli_extract_non_neg_int(argv[1], 0) - 1;
+    int off = cli_extract_non_neg_int(argv[2], 0) - 1;
+    
+    if ((!all_key && (key < 0)) || (key >= hebtn_keynum()) ||
+        (on < 0) || (on > 35) || (off < 0) || (off > 35)) {
+        printf(usage);
+        return;
+    }
+
+    for (int i = 0; i < hebtn_keynum(); i++) {
+        if (all_key || (i == key)) {
+            voltex_cfg->trigger.on[i] = on;
+            voltex_cfg->trigger.off[i] = off;
+        }
+    }
+    config_changed();
+
+    disp_hebtn();
 }
 
 static void handle_debug(int argc, char *argv[])
@@ -186,6 +237,7 @@ void commands_init()
     cli_register("level", handle_level, "Set LED brightness level.");
     cli_register("knob", handle_knob, "Set knob rate and direction.");
     cli_register("calibrate", handle_calibrate, "Calibrate the key sensors.");
+    cli_register("trigger", handle_trigger, "Set Hall effect switch triggering.");
     cli_register("debug", handle_debug, "Toggle debug features.");
     cli_register("save", handle_save, "Save config to flash.");
     cli_register("factory", handle_factory_reset, "Reset everything to default.");

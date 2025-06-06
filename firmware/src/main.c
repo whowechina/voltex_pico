@@ -33,18 +33,18 @@
 #include "spin.h"
 #include "hebtn.h"
 
-#define WHITE 0xffffff
 
 static void run_lights()
 {
-    uint16_t button = button_read();
-    uint32_t phase = time_us_32() >> 16;
-    for (int i = 0; i < 7; i++) {
-        uint32_t color = rgb32_from_hsv(phase + i * 35, 255, 128);
-        if (button & (1 << i)) {
-            color = WHITE;
+    //uint16_t button = button_read();
+    uint32_t phase = time_us_32() >> 14;
+    for (int i = 0; i < hebtn_keynum(); i++) {
+        if (hebtn_actuated(i)) {
+            light_set_main(i, rgb32(255, 0, 0, false));
+        } else {
+            uint8_t travel = hebtn_travel_byte(i);
+            light_set_main(i, rgb32_from_hsv(0, 0, travel));
         }
-        light_set_main(i, color);
     }
 
     uint16_t left = spin_read(0) * 255 / 360 / 4;
@@ -52,18 +52,6 @@ static void run_lights()
     for (int i = 0; i < 20; i++) {
         light_set_left(i, rgb32_from_hsv((phase >> 2) - left + i * 50, 255, 128));
         light_set_right(i, rgb32_from_hsv((phase >> 2) - right + i * 50, 255, 128));
-    }
-}
-
-static void runtime_setup()
-{
-    uint16_t button = button_read();
-
-    bool aux_down = button & 0x40;
-    bool int_pedal = button & 0x80;
-
-    if (aux_down && int_pedal) {
-        voltex_runtime.ext_pedal_invert = button & 0x100;
     }
 }
 
@@ -89,10 +77,6 @@ struct __attribute__((packed)) {
 static void hid_update()
 {
     uint16_t buttons = button_read();
-    bool ext_pedal = buttons & 0x100;
-    if (ext_pedal ^ voltex_runtime.ext_pedal_invert) {
-        buttons |= 0x80; // combine internal and external pedal
-    }
     hid_report.buttons = buttons & 0xff;
     for (int i = 0; i < 2; i++) {
         hid_report.joy[i] = spin_units(i);
@@ -121,10 +105,9 @@ static void core0_loop()
         hebtn_update();
 
         hid_update();
-        runtime_setup();
 
         sleep_until(next_frame);
-        next_frame += 1001;
+        next_frame += 1000;
     }
 }
 
@@ -152,12 +135,6 @@ static void update_check()
     }
 }
 
-static void detect_pedal_polarity()
-{
-    uint16_t buttons = button_read();
-    voltex_runtime.ext_pedal_invert = buttons & 0x100;
-}
-
 void init()
 {
     sleep_ms(50);
@@ -176,8 +153,6 @@ void init()
     button_init();
     spin_init();
     hebtn_init();
-
-    detect_pedal_polarity();
 
     cli_init("voltex_pico>", "\n   << Voltex Pico Controller >>\n"
                             " https://github.com/whowechina\n\n");

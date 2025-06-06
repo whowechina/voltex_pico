@@ -18,20 +18,26 @@ static voltex_cfg_t default_cfg = {
     .light = {
         .level = 128,
     },
-    .pedal = {
-        .internal = true,
-        .external = true,
-    },
 };
 
 voltex_runtime_t voltex_runtime;
 
 static void config_loaded()
 {
+    for (int i = 0; i < 6; i++) {
+        if (voltex_cfg->trigger.on[i] > 35) {
+            voltex_cfg->trigger.on[i] = 35;
+        }
+        if (voltex_cfg->trigger.off[i] > 35) {
+            voltex_cfg->trigger.off[i] = 35;
+        }
+    }
+
     if (voltex_cfg->knob.units_per_turn == 0) {
         voltex_cfg->knob.units_per_turn = 80;
-        config_changed();
     }
+
+    config_changed();
 }
 
 void config_changed()

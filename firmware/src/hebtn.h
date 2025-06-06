@@ -11,13 +11,14 @@ void hebtn_update();
 
 uint8_t hebtn_keynum();
 
-bool hebtn_pressed(uint8_t chn);
-bool hebtn_updated(uint8_t chn);
-uint16_t hebtn_velocity(uint8_t chn);
+bool hebtn_present(uint8_t chn);
+bool hebtn_actuated(uint8_t chn);
 
-uint8_t hebtn_analog(uint8_t chn);
+uint16_t hebtn_range(uint8_t chn);
+uint16_t hebtn_travel(uint8_t chn);
+uint8_t hebtn_travel_byte(uint8_t chn);
 uint16_t hebtn_raw(uint8_t chn);
 
-void hebtn_calibrate_travel();
+void hebtn_calibrate();
 
 #endif

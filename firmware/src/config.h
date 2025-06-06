@@ -16,21 +16,17 @@ typedef struct {
 
 typedef struct __attribute__((packed)) {
     struct {
-        uint16_t up;
-        uint16_t down;
-    } calibrated[6];
+        uint16_t up[6];
+        uint16_t down[6];
+    } calibrated;
     struct {
-        uint8_t on;
-        uint8_t off;
-    } trigger[6];
+        uint8_t on[6];
+        uint8_t off[6];
+    } trigger;
     struct {
         uint8_t units_per_turn;
         uint8_t reversed[7];
     } knob;
-    struct {
-        bool internal;
-        bool external;
-    } pedal;
     struct {
         rgb_hsv_t colors[12];
         uint8_t level;
@@ -39,8 +35,6 @@ typedef struct __attribute__((packed)) {
 } voltex_cfg_t;
 
 typedef struct {
-    bool key_stuck;
-    bool ext_pedal_invert;
     struct {
         bool sensor;
         bool velocity;

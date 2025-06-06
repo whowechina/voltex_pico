@@ -20,8 +20,25 @@
 
 #define KEY_NUM ADC_KEY_NUM
 
-#define PRESS_TRIGGER 250
-#define RELEASE_TRIGGER 300
+static bool hebtn_presence[6];
+static uint16_t reading[KEY_NUM];
+bool key_actuated[KEY_NUM];
+
+static void hebtn_discovery()
+{
+    hebtn_update();
+    for (int i = 0; i < KEY_NUM; i++) {
+        hebtn_presence[i] = (reading[i] > 200);
+    }
+}
+
+bool hebtn_present(uint8_t chn)
+{
+    if (chn >= KEY_NUM) {
+        return false;
+    }
+    return hebtn_presence[chn];
+}
 
 void hebtn_init()
 {
@@ -47,21 +64,14 @@ void hebtn_init()
     gpio_init(25);
     gpio_set_dir(25, GPIO_OUT);
     gpio_put(25, 1);
+
+    hebtn_discovery();
 }
 
 uint8_t hebtn_keynum()
 {
     return KEY_NUM;
 }
-
-static uint16_t reading[KEY_NUM];
-uint64_t reading_time;
-
-static uint16_t dist[KEY_NUM];
-
-uint16_t velocity[KEY_NUM];
-bool updated[KEY_NUM];
-bool pressed[KEY_NUM];
 
 static inline void select_channel(int chn)
 {
@@ -82,76 +92,113 @@ static inline uint16_t read_avg(int count)
     return sum / count;
 }
 
-static void read_sensor(int chn)
+static void read_sensor(int chn, int avg)
 {
-    reading[chn] = read_avg(2);
+    reading[chn] = read_avg(avg);
     if (voltex_runtime.debug.sensor) {
         if (chn == 0) {
             printf("\n");
         }
         printf(" %d:%4d,", chn, reading[chn]);
     }
-    
+}
+
+static void do_triggering()
+{
+    for (int i = 0; i < KEY_NUM; i++) {
+        int travel = hebtn_travel(i);
+
+        int on_trig = voltex_cfg->trigger.on[i] % 36 + 1;
+        on_trig = on_trig * hebtn_range(i) / 37;
+
+        int off_trig = (35 - voltex_cfg->trigger.off[i] % 36) + 1;
+        off_trig = off_trig * on_trig / 38; // 38 for just a bit more dead zone
+
+        key_actuated[i] = key_actuated[i] ? (travel > off_trig)
+                                          : (travel >= on_trig);
+    }
 }
 
 void hebtn_update()
 {
-    reading_time = time_us_64();
-
     for (int i = 0; i < KEY_NUM; i++) {
-        read_sensor(i);
-        select_channel((i + 1) % KEY_NUM); // for the next reading
-        sleep_us(2);
-    }
-}
-
-uint16_t hebtn_velocity(uint8_t chn)
-{
-    return velocity[chn];
-}
-
-bool hebtn_pressed(uint8_t chn)
-{
-    return pressed[chn];
-}
-
-bool hebtn_updated(uint8_t chn)
-{
-    if (updated[chn]) {
-        updated[chn] = false;
-        return true;
-    }
-    return false;
-}
-
-uint8_t hebtn_analog(uint8_t chn)
-{
-    int analog = (dist[chn] - 100) * 255 / 400;
-    if (analog < 0) {
-        analog = 0;
-    }
-    if (analog > 255) {
-        analog = 255;
+        select_channel(i);
+        sleep_us(5);
+        read_sensor(i, 32);
     }
 
-    return analog;
+    do_triggering();
+}
+
+bool hebtn_actuated(uint8_t chn)
+{
+    if (chn >= KEY_NUM) {
+        return false;
+    }
+    return key_actuated[chn];
 }
 
 uint16_t hebtn_raw(uint8_t chn)
 {
+    if (chn >= KEY_NUM) {
+        return 0;
+    }
     return reading[chn];
+}
+
+uint16_t hebtn_range(uint8_t chn)
+{
+    if (chn >= KEY_NUM) {
+        return 0;
+    }
+    return abs(voltex_cfg->calibrated.down[chn] - voltex_cfg->calibrated.up[chn]);
+}
+
+uint16_t hebtn_travel(uint8_t chn)
+{
+    if (chn >= KEY_NUM) {
+        return 0;
+    }
+
+    int up = voltex_cfg->calibrated.up[chn];
+    int down = voltex_cfg->calibrated.down[chn];
+    int range = down - up;
+    int travel = reading[chn] - up;
+    if (range < 0) {
+        travel = -travel;
+        range = -range;
+    }
+
+    if (travel < 8) { // extra start-up dead zone
+        travel = 0;
+    } else if (travel > range) {
+        travel = range;
+    }
+
+    return travel;
+}
+
+uint8_t hebtn_travel_byte(uint8_t chn)
+{
+    if (chn >= KEY_NUM) {
+        return 0;
+    }
+
+    int range = hebtn_range(chn);
+    int pos = hebtn_travel(chn);
+    return (range != 0) ? pos * 255 / range : 0;
 }
 
 static void read_sensors_avg(uint16_t avg[KEY_NUM])
 {
-    const int avg_count = 1000;
+    const int avg_count = 200;
     uint32_t sum[KEY_NUM] = {0};
 
     for (int i = 0; i < avg_count; i++) {
         for (int j = 0; j < KEY_NUM; j++) {
             select_channel(j);
             sleep_us(5);
-            read_sensor(j);
+            read_sensor(j, 32);
             sum[j] += reading[j];
         }
     }
@@ -160,14 +207,12 @@ static void read_sensors_avg(uint16_t avg[KEY_NUM])
     }
 }
 
-void hebtn_calibrate_travel()
+void hebtn_calibrate()
 {
     printf("Calibrating key RELEASED...\n");
 
-    uint16_t released[KEY_NUM] = {0};
-    uint16_t pressed[KEY_NUM] = {0};
-
-    read_sensors_avg(released);
+    uint16_t up_val[KEY_NUM] = {0};
+    read_sensors_avg(up_val);
 
     printf("Calibrating key PRESSED...\n");
     printf("Please press all keys down, not necessarily simultaneously.\n");
@@ -175,8 +220,8 @@ void hebtn_calibrate_travel()
     uint16_t min[KEY_NUM] = {0};
     uint16_t max[KEY_NUM] = {0};
     for (int i = 0; i < KEY_NUM; i++) {
-        min[i] = released[i];
-        max[i] = released[i];
+        min[i] = up_val[i];
+        max[i] = up_val[i];
     }
     uint64_t stop = time_us_64() + 10000000;
     while (time_us_64() < stop) {
@@ -192,19 +237,21 @@ void hebtn_calibrate_travel()
         }
     }
 
+    uint16_t down_val[KEY_NUM] = {0};
     bool success = true;
     for (int i = 0; i < KEY_NUM; i++) {
-        int npole_val = max[i] - released[i];
-        int spole_val = released[i] - min[i];
-        bool npole = npole_val > 400;
-        bool spole = spole_val > 400;
-        if (npole != spole) {
-            pressed[i] = npole ? max[i] - 50 : min[i] + 50;
-            released[i] += npole ? 150 : -150;
-        } else {
-            printf("Key %d calibration failed. [%d-%d-%d].\n", i, min[i], released[i], max[i]);
+
+        int trim = (max[i] - min[i]) / 50; // 2% dead zone at two sides
+        max[i] -= trim;
+        min[i] += trim;
+
+        bool max_is_down = abs(max[i] - up_val[i]) > abs(min[i] - up_val[i]);
+        down_val[i] = max_is_down ? max[i] : min[i];
+        up_val[i] = max_is_down ? min[i] : max[i];
+        if (abs(down_val[i] - up_val[i]) < 300) {
+            printf("Key %d calibration failed. [%4d->%4d].\n",
+                   i + 1, up_val[i], down_val[i]);
             success = false;
-            break;
         }
     }
 
@@ -215,9 +262,9 @@ void hebtn_calibrate_travel()
     }
 
     for (int i = 0; i < KEY_NUM; i++) {
-        voltex_cfg->calibrated[i].up = released[i];
-        voltex_cfg->calibrated[i].down = pressed[i];
-        printf("Key %d: %4d -> %4d.\n", i + 1, released[i], pressed[i]);
+        voltex_cfg->calibrated.up[i] = up_val[i];
+        voltex_cfg->calibrated.down[i] = down_val[i];
+        printf("Key %d: %4d -> %4d.\n", i + 1, up_val[i], down_val[i]);
     }
 
     config_changed();
