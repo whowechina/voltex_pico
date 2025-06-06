@@ -32,7 +32,7 @@ static void disp_knob()
     for (int i = 0; i < 2; i++) {
         printf("  %s Knob: %s, %s.\n", i ? "Right" : "Left",
                spin_present(i) ? "OK" : "ERROR",
-               voltex_cfg->knob.reversed[i] ? "Reversed" : "Forward");
+               voltex_cfg->knob.reversed[i] ? "Reverse" : "Forward");
     }
 }
 
@@ -139,7 +139,7 @@ static void handle_knob_invert(int side, const char *dir)
 static void handle_knob(int argc, char *argv[])
 {
     const char *usage = "Usage: knob rate <units_per_turn>\n"
-                        "       knob <left|right> <normal|reverse>\n"
+                        "       knob <left|right> <forward|reverse>\n"
                         "  units_per_turn: 20..255\n";
     if (argc != 2) {
         printf(usage);
