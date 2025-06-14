@@ -1,6 +1,5 @@
 (fp_lib_table
   (version 7)
   (lib (name "voltex_pico")(type "KiCad")(uri "${KIPRJMOD}/voltex_pico.pretty")(options "")(descr ""))
-  (lib (name "Switch_Keyboard_Kailh")(type "KiCad")(uri "${KIPRJMOD}/Switch_Keyboard_Kailh.pretty")(options "")(descr ""))
   (lib (name "Type-C")(type "KiCad")(uri "${KIPRJMOD}/Type-C.pretty")(options "")(descr ""))
 )
