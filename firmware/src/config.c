@@ -13,7 +13,7 @@ voltex_cfg_t *voltex_cfg;
 
 static voltex_cfg_t default_cfg = {
     .knob = {
-        .units_per_turn = 80,
+        .units_per_turn = 144,
     },
     .light = {
         .level = 128,

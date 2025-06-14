@@ -36,22 +36,29 @@
 
 static void run_lights()
 {
-    //uint16_t button = button_read();
-    uint32_t phase = time_us_32() >> 14;
-    for (int i = 0; i < hebtn_keynum(); i++) {
-        if (hebtn_actuated(i)) {
-            light_set_main(i, rgb32(255, 0, 0, false));
+    uint16_t button = button_read();
+    for (int i = 0; i < 6; i++) {
+        if (hebtn_actuated(i) || (button & (1 << i))) {
+            light_set_button(i, rgb32(255, 0, 0, false), false);
         } else {
             uint8_t travel = hebtn_travel_byte(i);
-            light_set_main(i, rgb32_from_hsv(0, 0, travel));
+            light_set_button(i, rgb32_from_hsv(0, 0, travel), false);
         }
     }
+    light_set_button(6, button & (1 << 6) ? rgb32(0, 0, 255, false) : 0, false);
 
-    uint16_t left = spin_read(0) * 255 / 360 / 4;
-    uint16_t right = spin_read(1) * 255 / 360 / 4;
-    for (int i = 0; i < 20; i++) {
-        light_set_left(i, rgb32_from_hsv((phase >> 2) - left + i * 50, 255, 128));
-        light_set_right(i, rgb32_from_hsv((phase >> 2) - right + i * 50, 255, 128));
+    uint16_t left = spin_read(0) * 255 / 360 / 16;
+    uint16_t right = spin_read(1) * 255 / 360 / 16;
+    for (int i = 0; i < 5; i++) {
+        light_set_knob(0, i, rgb32_from_hsv(255 + i * 30 - left, 255, 128), false);
+        light_set_knob(1, i, rgb32_from_hsv(255 + i * 30 + right, 255, 128), false);
+    }
+
+    uint32_t phase = time_us_32() >> 14;
+    for (int i = 0; i < 4; i++) {
+        uint32_t color = rgb32_from_hsv(phase - i * 20, 255, 255);
+        light_set_wing(0, i, color, false);
+        light_set_wing(1, i, color, false);
     }
 }
 
@@ -70,17 +77,39 @@ static void core1_loop()
 }
 
 struct __attribute__((packed)) {
-    uint8_t buttons;
-    uint8_t joy[6];
+    uint32_t buttons;
+    uint8_t joy[2];
 } hid_report, old_hid_report;
+
+#define AUX_1_MASK 0x0100
+#define AUX_2_MASK 0x0080
+#define ALL_BUTTON_MASK 0x7f
+#define VIRTUAL_BUTTON_SHIFT 7
 
 static void hid_update()
 {
-    uint16_t buttons = button_read();
-    hid_report.buttons = buttons & 0xff;
+    uint32_t buttons = button_read();
+    for (int i = 0; i < 6; i++) {
+        if (hebtn_actuated(i)) {
+            buttons |= (1 << i);
+        }
+    }
+
+    hid_report.buttons = buttons & ALL_BUTTON_MASK;
+
+    bool left_aux = buttons & AUX_1_MASK;
+    bool right_aux = buttons & AUX_2_MASK;
+    if (left_aux || right_aux) {
+        hid_report.buttons <<= VIRTUAL_BUTTON_SHIFT;
+    }
+    if (left_aux && right_aux) {
+        hid_report.buttons <<= VIRTUAL_BUTTON_SHIFT;
+    }
+
     for (int i = 0; i < 2; i++) {
         hid_report.joy[i] = spin_units(i);
     }
+
     if (tud_hid_ready()) {
         if ((memcmp(&hid_report, &old_hid_report, sizeof(hid_report)) != 0) &&
              tud_hid_report(REPORT_ID_JOYSTICK, &hid_report, sizeof(hid_report))) {
@@ -115,24 +144,21 @@ static void core0_loop()
 static void update_check()
 {
     const uint8_t pins[] = BUTTON_DEF;
-    int pressed = 0;
-    for (int i = 0; i < count_of(pins); i++) {
+    // AUX 1 and AUX 2
+    for (int i = 7; i < 9; i++) {
         uint8_t gpio = pins[i];
         gpio_init(gpio);
         gpio_set_function(gpio, GPIO_FUNC_SIO);
         gpio_set_dir(gpio, GPIO_IN);
         gpio_pull_up(gpio);
         sleep_ms(1);
-        if (!gpio_get(gpio)) {
-            pressed++;
+        if (gpio_get(gpio)) {
+            return;
         }
     }
 
-    if (pressed >= 4) {
-        sleep_ms(100);
-        reset_usb_boot(0, 2);
-        return;
-    }
+    sleep_ms(100);
+    reset_usb_boot(0, 2);
 }
 
 void init()
@@ -185,4 +211,19 @@ void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id,
                            hid_report_type_t report_type, uint8_t const *buffer,
                            uint16_t bufsize)
 {
+    for (int i = 0; i < 7; i++) {
+        light_set_button(i, rgb32_from_hsv(0, 0, buffer[i]), true);
+    }
+    uint32_t knob1 = rgb32(buffer[7], buffer[8], buffer[9], false);
+    uint32_t knob2 = rgb32(buffer[10], buffer[11], buffer[12], false);
+    for (int i = 0; i < 5; i++) {
+        light_set_knob(0, i, knob1, true);
+        light_set_knob(1, i, knob2, true);
+    }
+    uint32_t wing1 = rgb32(buffer[13], buffer[14], buffer[15], false);
+    uint32_t wing2 = rgb32(buffer[16], buffer[17], buffer[18], false);
+    for (int i = 0; i < 4; i++) {
+        light_set_wing(0, i, wing1, true);
+        light_set_wing(1, i, wing2, true);
+    }
 }

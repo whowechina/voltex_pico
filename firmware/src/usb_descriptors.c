@@ -58,8 +58,8 @@ uint8_t const* tud_descriptor_device_cb(void) {
 //--------------------------------------------------------------------+
 
 uint8_t const desc_hid_report_joy[] = {
-    voltex_PICO_REPORT_DESC_JOYSTICK,
-    voltex_PICO_REPORT_DESC_LIGHTS,
+    VOLTEX_PICO_REPORT_DESC_JOYSTICK,
+    VOLTEX_PICO_REPORT_DESC_LIGHTS,
 };
 
 // Invoked when received GET HID REPORT DESCRIPTOR
@@ -125,33 +125,25 @@ static const char *string_desc_arr[] = {
     serial_number_str,           // 3: Serials, use chip ID
     "Voltex Pico",
     "Voltex Pico CLI Port",
-    "Spinner 1 R",
-    "Spinner 1 G",
-    "Spinner 1 B",
-    "Spinner 2 R",
-    "Spinner 2 G",
-    "Spinner 2 B",
-    "Spinner 3 R",
-    "Spinner 3 G",
-    "Spinner 3 B",
-    "Spinner 4 R",
-    "Spinner 4 G",
-    "Spinner 4 B",
-    "Spinner 5 R",
-    "Spinner 5 G",
-    "Spinner 5 B",
-    "Title R",
-    "Title G",
-    "Title B",
-    "Pedal 1 R",
-    "Pedal 1 G",
-    "Pedal 1 B",
-    "Pedal 2 R",
-    "Pedal 2 G",
-    "Pedal 2 B",
-    "Pedal 3 R",
-    "Pedal 3 G",
-    "Pedal 3 B",
+    "BT-A",
+    "BT-B",
+    "BT-C",
+    "BT-D",
+    "FX-L",
+    "FX-R",
+    "START",
+    "Knob Left R",
+    "Knob Left G",
+    "Knob Left B",
+    "Knob Right R",
+    "Knob Right G",
+    "Knob Right B",
+    "Wing Left R",
+    "Wing Left G",
+    "Wing Left B",
+    "Wing Right R",
+    "Wing Right G",
+    "Wing Right B",
 };
 
 // Invoked when received GET STRING DESCRIPTOR request

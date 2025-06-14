@@ -20,11 +20,11 @@
 #include "board_defs.h"
 #include "config.h"
 
-#define HID_TIMEOUT 10*1000*1000
+#define HID_TIMEOUT 2*1000*1000
 
 static uint32_t buf_main[9]; // BT * 4 + FX * 2 + START + AUX * 2
-static uint32_t buf_left[20]; // Side * 4 + Knob * 16
-static uint32_t buf_right[20]; // Side * 4 + Knob * 16
+static uint32_t buf_left[9]; // Side * 4 + Knob * 5
+static uint32_t buf_right[9]; // Side * 4 + Knob * 5
 
 static inline uint32_t _rgb32(uint32_t c1, uint32_t c2, uint32_t c3, bool gamma_fix)
 {
@@ -126,32 +126,6 @@ void light_update()
     drive_led();
 }
 
-void light_set_main(uint8_t index, uint32_t color)
-{
-    static const uint8_t led_map[] = BUTTON_LIGHT_MAP;
-
-    if (index >= count_of(buf_main)) {
-        return;
-    }
-    buf_main[led_map[index]] = apply_level(color);
-}
-
-void light_set_left(uint8_t index, uint32_t color)
-{
-    if (index >= count_of(buf_left)) {
-        return;
-    }
-    buf_left[index] = apply_level(color);
-}
-
-void light_set_right(uint8_t index, uint32_t color)
-{
-    if (index >= count_of(buf_right)) {
-        return;
-    }
-    buf_right[index] = apply_level(color);
-}
-
 static bool bypass_check(bool hid)
 {
     static uint64_t hid_timeout = 0;
@@ -170,25 +144,48 @@ void light_set_button(uint8_t index, uint32_t color, bool hid)
     if (bypass_check(hid)) {
         return;
     }
-    if (index < 4) {
-        light_set_main(index, color);
+
+    static const uint8_t led_map[] = BUTTON_LIGHT_MAP;
+    if (index >= count_of(buf_main)) {
+        return;
     }
+    buf_main[led_map[index]] = apply_level(color);
 }
 
-void light_set_fx(uint8_t index, uint32_t color, bool hid)
+void light_set_wing(uint8_t side, uint8_t index, uint32_t color, bool hid)
 {
     if (bypass_check(hid)) {
         return;
     }
-    if (index < 2) {
-        light_set_main(4 + index, color);
+    if ((index >= 4) && (index != INDEX_ALL)) {
+        return;
+    }
+
+    uint32_t *buf = (side & 1) ? buf_right : buf_left;
+    for (int i = 0; i < 4; i++) {
+        if ((index == INDEX_ALL) || (index == i)) {
+            buf[i] = apply_level(color);
+        }
     }
 }
 
-void light_set_start(uint32_t color, bool hid)
+void light_set_knob(uint8_t side, uint8_t index, uint32_t color, bool hid)
 {
     if (bypass_check(hid)) {
         return;
     }
-    light_set_main(6, color);
+    if ((index >= 5) || (index == INDEX_ALL)) {
+        return;
+    }
+
+    bool is_right = side & 1;
+    uint32_t *buf = is_right ? buf_right : buf_left;
+    if (is_right) {
+        index = 4 - index; // make left and right symmetric
+    }
+    for (int i = 0; i < 5; i++) {
+        if ((index == INDEX_ALL) || (index == i)) {
+            buf[4 + i] = apply_level(color);
+        }
+    }
 }
