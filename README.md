@@ -61,7 +61,7 @@ https://discord.gg/M8f2PPQFEA
 * 50x 0603 0.1uF capacitors (all capacitors on the PCB, most of them are optional).
 * 4x 0603 5.1kohm resistors (R1, R2, R3, R4).
 * 12x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
-* 1x Kail Choc switch for the START button (B7).
+* 1x Kailh Choc switch for the START button (B7).
 * 2x ALPS SKHHBVA010 or compatible (6\*6\*7mm) tactile switches for the AUX buttons (B8, B9).
 * Some soft wires to connect the main PCB to the sensor PCBs.
 
@@ -75,10 +75,10 @@ https://discord.gg/M8f2PPQFEA
   * 6x SS49E or compatible linear Hall Effect sensors, in SOT23-3 (H1-H6).
   * 1x 10ohm resistor, 0603 (R5).
   * 1x 3.3V Zener diode, in SOD-123 or SOD-123F, such as BZT52H-C3V3 (Z1).
-  * 6x low profile magnetic switches, Gateron/Nuphy Jade mini or Jade Pro mini, or Kailh Star Magnetic Mini. (B1-B6).
-  * 4x heavy springs to replace the original ones for 4 BT low-profile buttons. You may buy or harvest them from Kailh Choc heavy switches.
+  * 6x low profile magnetic switches, Gateron/NuPhy Jade Mini or Jade Pro Mini, or Kailh Star Magnetic Mini. (B1-B6).
+  * 4x heavy springs (60gF+) for low-profile switches, to replace the original ones in 4 BT switches. You may buy or harvest them from Kailh Choc heavy switches.
 
-* This picture shows a soldered PCB (there might be changes in newer versions of PCB). It shows a Hall Effect switch build.  
+* This picture shows a soldered PCB (there might be changes in newer versions of PCB). It's a Hall Effect switch build.  
   <img src="doc/pcb1.jpg" width="90%">  
   <img src="doc/pcb2.jpg" width="90%">
 
@@ -92,11 +92,12 @@ https://discord.gg/M8f2PPQFEA
 * You don't need to solder all the capacitors, it's fine to just solder the ones right beside ICs.
 * Z1 is to protect the Pico from excessive voltage, don't ignore it.
 * There are many LDOs and shunt voltage reference models, as long as they have the same form factor, pinout and voltage, you can use them. Best LDO voltages are 4.0 to 4.5V, they should not go higher than 4.5V, as the USB voltage under load could be lower than it. The shunt voltage reference should be 2.0 to 2.5V, roughly half of the LDO voltage.
+* For regular switch build, you need to solder the switches onto the PCB. For Hall Effect switch build, you don't need to solder the switches, just make sure the magnets are aligned with the small white circles on the PCB.
 
 ### Test the PCB
 * You can test the PCB now, put the firmware in.
 * Side LEDs and Knob LEDs should light up in a rainbow pattern.
-* Button LEDs respond to the button presses.
+* Button LEDs respond to the button presses (magnetic switches need to be temporarily put on and calibrated).
 * Voltex Pico should be recognized as a USB HID device, here's the test page.  
   https://greggman.github.io/html5-gamepad-test/
 * Move a magnetic screwdriver tip close to the TMAG5273 sensor, you'll notice the corresponding axis move in the test page. Please check both sensors.
@@ -120,7 +121,7 @@ https://discord.gg/M8f2PPQFEA
 
 #### Button Parts
 For regular switch build, choose Choc V1 or Choc v2 keycaps according to your switch type. For Hall Effect switch build, always choose Choc V2 ones.
-For all button keycaps, print them upside down.
+**For all button keycaps, print them upside down.**
 
 * Main BT: `Production\3DPrint\* - BT Choc V?.stl`, white.
 * FX BT: `Production\3DPrint\* - FX-? Choc V?.stl`, smokey transparent. Support required.
@@ -135,16 +136,16 @@ For all button keycaps, print them upside down.
 * Support: `Production\3DPrint\* - Support.stl`, clear, semi-transparent.
 * Panel: `Production\3DPrint\* - Panel Combo.3mf`, white or close-to-white, with logo and patterns in black if you have multi-color system. Print it upside down.  
 
-### New Stabilizing Mechanism for Big Thin button 
-Before assembly, I'm going to introduce a new stabilizing mechanism for big thin buttons. I designed it so a slim Voltex Pico is possible.
+### Thin Stabilizing Mechanism for Big Button 
+Before assembly, I'm going to introduce a new thin stabilizing mechanism for big buttons. I designed it so a slim Voltex Pico is possible.
 
 Stabilizing a button means to make the button not wobble when pressed. A wobbling button is like a seesaw, corners for the button don't go up and down in sync, which makes the button feel bad and not reliable.
 
 Stabilizing a big button is never a problem for arcade, simply because arcade cabs have enough vertical space. They can use so called "tube guide" stabilizing. As long as the tube is long enough (versus the gap between the tube and the shaft), buttons can only move or twist horizontally a little bit, but never wobble like a seesaw. 
 
-Technically, for a slim controller which only has millimeters of vertical space, we can still use tube guide, but such a small tube and shaft will be very difficult to make or harvest, not to mention the sliding surface material. In short words, it's not feasible for DIYers. So we have to use a lever based stabilizing mechanism, like people do in the modern keyboards.
+Technically, for a slim controller which only has millimeters of vertical space, we can still use tube guide, but such a small tube and shaft will be very difficult to make or harvest, not to mention the sliding surface material. In short words, it's not feasible for DIYers. So we have to use a lever based stabilizing mechanism, like we do in the modern keyboards.
 
-Long keyboard keycaps are only "1-dimensional", you only need one stabilizer on their X-axis. But for big arcade buttons - big and flat - they need "2-dimensions" of stabilizing. So people just drop in 2 stabilizers, placed perpendicular to each other. Technically this will work. But there come new problems.
+Long keyboard keycaps are "1-dimensional", you only need one stabilizer on their X-axis. But for big arcade buttons - big cicle or square - they need "2-dimensions" of stabilizing. So people just drop in 2 stabilizers, placed perpendicular to each other. Technically this will work. But there come new problems.
   * Vertical space for the stem and the stabilizer is not ideal for a slim controller.
   * Requires accurate keycap stem holes (connecting both the keyswitch and the stabilizer), tiny misalignment can cause stress and bring excessive friction.
   * Both FDM and SLA 3D printing have their own tolerances, which can cause misalignment easily.
@@ -154,7 +155,7 @@ First of all, I'm still using a lever-based stabilizing, just like the one in ke
 
 My change is, remove the housing units and the stems, let the U-shape steel lever drive the keycap directly. With the stems removed, coupling of the keycap and the lever is much more lenient to misalignment; with the housing units removed, the vertical space is much smaller, which is ideal for a slim controller.
 
-The "bearing" for the lever is printed in the bottom housing, it has slots for the lever shaft. The keycaps have small holes for the lever arms to go through. A FDM 3D printer can print them easily.
+The "bearing" for the lever is printed along with the the bottom housing. The keycaps have small holes for the lever arms to go through. A FDM 3D printer can print them easily.
 
   <img src="doc/big_thin_button_stab.webp" width="80%">
 
@@ -167,20 +168,20 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 * 6x **M2\*(8mm-10mm) screws** for fixing wing bases to the wing cover.
 * 12x **M3\*(4mm-5mm) screws** for fixing the PCB to the base parts.
 * 10x **M3\*(8mm-10mm) screws** for fixing the base, wing base, support and the panel.
-* 2x 6700zz (10x15x4mm) bearings for the knobs
+* 2x 6700zz (10x15x4mm) bearings for the knobs.
 * 2x round magnets, 5mm diameter, 1.5mm or 2mm tall, MUST be radially/diametrically magnetized (N-S poles on the curved side).
-* Some good tape (such as acetate tape or high-temp teflon tape) to fix the magnets in place.
+* Some thin tape (such as acetate tape or high-temp teflon tape) to fix the magnets in place.
 * Some 10mm diameter silicone anti-slip pads for the bottom.  
 * Some 1mm thick soft felt sheet for damping the knobs.
 
 #### Steps
-1. We'll start with the bearings.  
+1. We'll start with the bearings. They should be inserted into wing parts. Fix them using bearing fixers and M2\*6mm screws.  
    <img src="doc/assemble_bearings.jpg" width="60%">
 
-2. Cut a ring from the soft felt sheet to dampen the knob.  If you feel this is too difficult, you can apply some layers of felt between the knob and the sensor PCB, it works too.   
+2. Cut a ring from the soft felt sheet to dampen the knob. If you feel this is too difficult, you can apply some layers of felt between the knob and the sensor PCB, it works too.   
    <img src="doc/felt_damping.jpg" width="60%">
 
-3. Fix the knob to the bearing with the magnet set and the M2.5 screws (screws are long enough to reinforce the knob shaft). Then put the magnet into the center seat. If you have some thin tape, apply it as a seal so magnet won't fall out.  
+3. Fix the knob to the bearing with the magnet set and the M2.5 screws (long screws help reinforce the knob shaft). Then put the magnet into the center seat. If you have some thin tape, apply it as a seal so magnet won't fall out.  
    <img src="doc/assemble_knob.jpg" width="45%"> <img src="doc/magnet_seal.jpg" width="45%">
 
 4. Put the main PCB into the base part, and sensor PCBs into the wing base parts. Use M3\*(4mm-5mm) screws to fix the PCB to the base parts.  
@@ -189,9 +190,9 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 5. Time to install keycaps to the stabilizer. It's simple, just look at the pictures. You can apply some thin poron pads to dampen the keycap noise, but it's not necessary. Some lubricant can be applied to the lever shaft, this makes the movement smoother.  
    <img src="doc/assemble_keycap.jpg" width="40%"> <img src="doc/assemble_keycap2.jpg" width="40%"> <img src="doc/assemble_keycap3.jpg" width="80%">
 
-6. Put on the support and the panel. Use M3\*(8mm-10mm) screws to fix the base.  
+6. Put on the support and the panel. Use M3\*(8mm-10mm) screws to fix the base. Leave the two screws on the wing base empty for now.
 
-7. Put on the wing bases, use M2\*(8mm-10mm) screws to fix them to the wing cover (see the picture for M2 screws). And use M3\*(8mm-10mm) screws on the remaining screw holes (one at each side). You can apply some silicone pads, they don't look nice but they prevent the controller from sliding on the table.   
+7. Put on the wing covers (which already have knobs on them), use M2\*(8mm-10mm) screws to fix them to the wing cover (see the picture for M2 screws). And use M3\*(8mm-10mm) screws on the remaining screw holes (one at each side). Apply silicone pads, they don't look nice but they prevent the controller from sliding on the table.   
    <img src="doc/assemble_wing_m2.jpg" width="25%"> <img src="doc/assemble_pads.jpg" width="70%">
    
 8. Congratulations! You have finished the assembly.  
@@ -212,7 +213,8 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 * If you built a Hall Effect switch version, you need to calibrate first (`calibrate` command). You can set trigger and reset point in command line.
 * Just plug it in and play.
 * You can set knob resolution by `knob rate` command.
+* You can set trigger and reset point by `trigger` command (only for Hall Effect switch version).
 
 ## CAD Source File
-I'm using OnShape free subscription. It's powerful but it can't archive original designs to local, so I can only share the link here. STL/DXF/DWG files are exported from this online document.  
+I'm using OnShape free subscription. It's powerful but it can't archive original designs to local, so I can only share the link here. All model files are exported from this online document.  
   https://cad.onshape.com/documents/757c9485a30088ef0335481e/w/af98e079c47cba7d81086e65/e/9703cb81cc6ed9c6ec563897
