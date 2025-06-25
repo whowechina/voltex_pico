@@ -187,7 +187,7 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 4. Put the main PCB into the base part, and sensor PCBs into the wing base parts. Use M3\*(4mm-5mm) screws to fix the PCB to the base parts.  
    <img src="doc/assemble_PCB.jpg" width="30%"> <img src="doc/assemble_PCB2.jpg" width="50%">
 
-5. Time to install keycaps to the stabilizer. It's simple, just look at the pictures. You can apply some thin poron pads to dampen the keycap noise, but it's not necessary. Some lubricant can be applied to the lever shaft, this makes the movement smoother.  
+5. Time to install keycaps to the stabilizer. It's simple, just look at the pictures. You can apply some thin poron pads to dampen the keycap noise, but it's not necessary. Some lubricant can be applied to the lever shaft, this makes the movement smoother. For Hall Effect version, you can use 704 RTV silicone to stick the switches to the PCB, or not - it's totally fine.  
    <img src="doc/assemble_keycap.jpg" width="40%"> <img src="doc/assemble_keycap2.jpg" width="40%"> <img src="doc/assemble_keycap3.jpg" width="80%">
 
 6. Put on the support and the panel. Use M3\*(8mm-10mm) screws to fix the base. Leave the two screws on the wing base empty for now.

@@ -187,7 +187,7 @@ Voltex Pico 的大 BT 按钮以及 FX 按钮都用了这种新的平衡机制。
 4. 将主 PCB 放入底座部件，将传感器 PCB 放入侧翼底座部件。使用 M3\*(4mm-5mm) 螺丝将 PCB 固定到底座部件。  
    <img src="doc/assemble_PCB.jpg" width="30%"> <img src="doc/assemble_PCB2.jpg" width="50%">
 
-5. 是时候安装键帽和平衡结构了。很简单，直接看图片吧。您可以应用一些薄的泡棉垫来阻尼键帽噪音，但这不是必需的。润滑一下钢丝会让运动更平滑。  
+5. 是时候安装键帽和平衡结构了。很简单，直接看图片吧。您可以应用一些薄的泡棉垫来阻尼键帽噪音，但这不是必需的。润滑一下钢丝会让运动更平滑。对于磁轴版本，磁轴可以用硅橡胶粘到 PCB 上，但不粘也是完全可以的。  
    <img src="doc/assemble_keycap.jpg" width="40%"> <img src="doc/assemble_keycap2.jpg" width="40%"> <img src="doc/assemble_keycap3.jpg" width="80%">
 
 6. 装上支撑和面板。使用 M3\*(8mm-10mm) 螺丝固定底座，侧翼上的两颗先空着。
