@@ -106,6 +106,11 @@ static void read_sensor(int chn, int avg)
 static void do_triggering()
 {
     for (int i = 0; i < KEY_NUM; i++) {
+        if (!hebtn_presence[i]) {
+            key_actuated[i] = false;
+            continue;
+        }
+
         int travel = hebtn_travel(i);
 
         int on_trig = voltex_cfg->trigger.on[i] % 36 + 1;
@@ -157,6 +162,10 @@ uint16_t hebtn_range(uint8_t chn)
 uint16_t hebtn_travel(uint8_t chn)
 {
     if (chn >= KEY_NUM) {
+        return 0;
+    }
+
+    if (!hebtn_presence[chn]) {
         return 0;
     }
 
