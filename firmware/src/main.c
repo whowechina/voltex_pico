@@ -41,8 +41,11 @@ static void run_lights()
         if (hebtn_actuated(i) || (button & (1 << i))) {
             light_set_button(i, rgb32(255, 0, 0, false), false);
         } else {
-            uint8_t travel = hebtn_travel_byte(i);
-            light_set_button(i, rgb32_from_hsv(0, 0, travel), false);
+        //    uint8_t travel = hebtn_travel_byte(i);
+        //    light_set_button(i, rgb32_from_hsv(0, 0, travel), false);
+            uint32_t phase = time_us_32() >> 14;
+            uint32_t rainbow = rgb32_from_hsv(phase + i * 30, 255, 64);
+            light_set_button(i, rainbow, false);
         }
     }
     light_set_button(6, button & (1 << 6) ? rgb32(0, 0, 255, false) : 0, false);

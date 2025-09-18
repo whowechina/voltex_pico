@@ -12,6 +12,10 @@
 voltex_cfg_t *voltex_cfg;
 
 static voltex_cfg_t default_cfg = {
+    .calibrated = {
+        .up = {3600, 3600, 3600, 3600, 3600, 3600},
+        .down = {2400, 2400, 2400, 2400, 2400, 2400},
+    },
     .knob = {
         .units_per_turn = 144,
     },
