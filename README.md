@@ -71,7 +71,7 @@ https://discord.gg/M8f2PPQFEA
 
 * The following is for Hall Effect switch build.
   * 1x ADG708BRUZ, 8 to 1 analog switch, in TSSOP-16 (U2).
-  * 1x LM4040 Shunt Voltage Reference, get one with 2.0, 2.1, or 2.5 reference voltage, in SOT23-3 (U5).
+  * 1x LM4040 Shunt Voltage Reference, get one with 2.0, 2.1, or 2.5 reference voltage, in SOT23-3 (U6).
   * 1x LP5907MFX-4.5 or TPS7A2042PDBVR LDO, in SOT23-5 (U7).
   * 6x SS49E or compatible linear Hall Effect sensors, in SOT23-3 (H1-H6).
   * 1x 10ohm resistor, 0603 (R5).
