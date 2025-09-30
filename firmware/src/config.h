@@ -32,6 +32,9 @@ typedef struct __attribute__((packed)) {
         uint8_t level;
         uint8_t reserved[15];
     } light;
+    struct {
+        bool spoof;
+    } hid;
 } voltex_cfg_t;
 
 typedef struct {
@@ -39,6 +42,9 @@ typedef struct {
         bool sensor;
         bool velocity;
     } debug;
+    struct {
+        bool spoofed;
+    } hid;
 } voltex_runtime_t;
 
 extern voltex_cfg_t *voltex_cfg;

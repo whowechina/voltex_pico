@@ -27,6 +27,8 @@
 #include "pico/unique_id.h"
 #include "tusb.h"
 
+static bool konami_spoof = false;
+
 tusb_desc_device_t desc_device_joy = {
     .bLength = sizeof(tusb_desc_device_t),
     .bDescriptorType = TUSB_DESC_DEVICE,
@@ -47,10 +49,32 @@ tusb_desc_device_t desc_device_joy = {
     .bNumConfigurations = 1
 };
 
+tusb_desc_device_t desc_device_joy_spoof = {
+    .bLength = sizeof(tusb_desc_device_t),
+    .bDescriptorType = TUSB_DESC_DEVICE,
+    .bcdUSB = 0x0200,
+    .bDeviceClass = 0x00,
+    .bDeviceSubClass = 0x00,
+    .bDeviceProtocol = 0x00,
+    .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
+
+    .idVendor = 0x1ccf,
+    .idProduct = 0x101c,
+    .bcdDevice = 0x0410,
+
+    .iManufacturer = 1,
+    .iProduct = 2,
+    .iSerialNumber = 3,
+
+    .bNumConfigurations = 1
+};
+
 // Invoked when received GET DEVICE DESCRIPTOR
 // Application return pointer to descriptor
-uint8_t const* tud_descriptor_device_cb(void) {
-    return (uint8_t const*)&desc_device_joy;
+uint8_t const* tud_descriptor_device_cb(void)
+{
+    void *ptr = konami_spoof ? &desc_device_joy_spoof : &desc_device_joy;
+    return (uint8_t const *)ptr;
 }
 
 //--------------------------------------------------------------------+
@@ -62,6 +86,11 @@ uint8_t const desc_hid_report_joy[] = {
     VOLTEX_PICO_REPORT_DESC_LIGHTS,
 };
 
+uint8_t const desc_hid_report_spoof[] = {
+    VOLTEX_PICO_REPORT_DESC_SPOOF,
+};
+
+
 // Invoked when received GET HID REPORT DESCRIPTOR
 // Application return pointer to descriptor
 // Descriptor contents must exist long enough for transfer to complete
@@ -69,7 +98,7 @@ uint8_t const* tud_hid_descriptor_report_cb(uint8_t itf)
 {
     switch (itf) {
         case 0:
-            return desc_hid_report_joy;
+            return konami_spoof ? desc_hid_report_spoof : desc_hid_report_joy;
         default:
             return NULL;
     }
@@ -106,11 +135,28 @@ uint8_t const desc_configuration_joy[] = {
                        8, EPNUM_CLI_OUT, EPNUM_CLI_IN, 64),
 };
 
+uint8_t const desc_configuration_spoof[] = {
+    // Config number, interface count, string index, total length, attribute,
+    // power in mA
+    TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN,
+                          TUSB_DESC_CONFIG_ATT_REMOTE_WAKEUP, 200),
+
+    // Interface number, string index, protocol, report descriptor len, EP In
+    // address, size & polling interval
+    TUD_HID_DESCRIPTOR(ITF_NUM_JOY, 4, HID_ITF_PROTOCOL_NONE,
+                       sizeof(desc_hid_report_spoof), EPNUM_JOY,
+                       CFG_TUD_HID_EP_BUFSIZE, 1),
+ 
+    TUD_CDC_DESCRIPTOR(ITF_NUM_CLI, 5, EPNUM_CLI_NOTIF,
+                       8, EPNUM_CLI_OUT, EPNUM_CLI_IN, 64),
+};
+
 // Invoked when received GET CONFIGURATION DESCRIPTOR
 // Application return pointer to descriptor
 // Descriptor contents must exist long enough for transfer to complete
-uint8_t const* tud_descriptor_configuration_cb(uint8_t index) {
-    return desc_configuration_joy;
+uint8_t const* tud_descriptor_configuration_cb(uint8_t index)
+{
+    return konami_spoof ? desc_configuration_spoof : desc_configuration_joy;
 }
 
 //--------------------------------------------------------------------+
@@ -180,4 +226,11 @@ uint16_t const* tud_descriptor_string_cb(uint8_t index, uint16_t langid)
     _desc_str[0] = (TUSB_DESC_STRING << 8) | (2 * chr_count + 2);
 
     return _desc_str;
+}
+
+void enable_konami_spoof()
+{
+    konami_spoof = true;
+    string_desc_arr[1] = "Konami Amusement";
+    string_desc_arr[2] = "SOUND VOLTEX controller";
 }

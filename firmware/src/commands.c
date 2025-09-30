@@ -50,9 +50,15 @@ static void disp_hebtn()
     }
 }
 
+static void disp_hid()
+{
+    printf("[HID]\n");
+    printf("  Mode: %s.\n", voltex_cfg->hid.spoof ? "Spoof" : "Normal");
+}
+
 void handle_display(int argc, char *argv[])
 {
-    const char *usage = "Usage: display [light|knob|he]\n";
+    const char *usage = "Usage: display [light|knob|he|hid]\n";
     if (argc > 1) {
         printf(usage);
         return;
@@ -62,10 +68,11 @@ void handle_display(int argc, char *argv[])
         disp_light();
         disp_knob();
         disp_hebtn();
+        disp_hid();
         return;
     }
 
-    const char *choices[] = {"light", "knob", "he" };
+    const char *choices[] = {"light", "knob", "he", "hid"};
     switch (cli_match_prefix(choices, count_of(choices), argv[0])) {
         case 0:
             disp_light();
@@ -75,6 +82,9 @@ void handle_display(int argc, char *argv[])
             break;
         case 2:
             disp_hebtn();
+            break;
+        case 3:
+            disp_hid();
             break;
         default:
             printf(usage);
@@ -199,6 +209,31 @@ static void handle_trigger(int argc, char *argv[])
     disp_hebtn();
 }
 
+static void handle_hid(int argc, char *argv[])
+{
+    const char *usage = "Usage: hid <normal|spoof>\n";
+    if (argc != 1) {
+        printf(usage);
+        return;
+    }
+
+    const char *choices[] = {"normal", "spoof"};
+    switch (cli_match_prefix(choices, count_of(choices), argv[0])) {
+        case 0:
+            voltex_cfg->hid.spoof = false;
+            break;
+        case 1:
+            voltex_cfg->hid.spoof = true;
+            break;
+        default:
+            printf(usage);
+            return;
+    }
+
+    config_changed();
+    printf("Need a reboot for the change to take effect.\n");
+}
+
 static void handle_debug(int argc, char *argv[])
 {
     const char *usage = "Usage: debug <sensor|velocity>\n";
@@ -238,6 +273,7 @@ void commands_init()
     cli_register("knob", handle_knob, "Set knob rate and direction.");
     cli_register("calibrate", handle_calibrate, "Calibrate the key sensors.");
     cli_register("trigger", handle_trigger, "Set Hall effect switch triggering.");
+    cli_register("hid", handle_hid, "Set HID mode.");
     cli_register("debug", handle_debug, "Toggle debug features.");
     cli_register("save", handle_save, "Save config to flash.");
     cli_register("factory", handle_factory_reset, "Reset everything to default.");

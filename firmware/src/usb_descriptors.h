@@ -36,19 +36,42 @@ enum {
         HID_INPUT(HID_DATA | HID_VARIABLE | HID_ABSOLUTE),               \
     HID_COLLECTION_END
 
-#define VOLTEX_PICO_REPORT_DESC_LIGHTS                                   \
-  HID_USAGE_PAGE(HID_USAGE_PAGE_DESKTOP),                                \
-  HID_USAGE(0x00),                                                       \
-  HID_COLLECTION(HID_COLLECTION_APPLICATION),                            \
-      HID_REPORT_ID(REPORT_ID_LIGHTS)                                    \
-      HID_REPORT_COUNT(19), HID_REPORT_SIZE(8),                          \
-      HID_LOGICAL_MIN(0x00), HID_LOGICAL_MAX_N(0x00ff, 2),               \
-      HID_USAGE_PAGE(HID_USAGE_PAGE_ORDINAL),                            \
-      HID_STRING_MINIMUM(6), HID_STRING_MAXIMUM(24),                     \
-      HID_USAGE_MIN(1), HID_USAGE_MAX(255),                              \
-      HID_OUTPUT(HID_DATA | HID_VARIABLE | HID_ABSOLUTE),                \
-      HID_REPORT_COUNT(1), HID_REPORT_SIZE(8), /* Padding */             \
-      HID_INPUT(HID_CONSTANT | HID_VARIABLE | HID_ABSOLUTE),             \
-      HID_COLLECTION_END
+#define VOLTEX_PICO_REPORT_DESC_SPOOF                                    \
+    HID_USAGE_PAGE(HID_USAGE_PAGE_DESKTOP),                              \
+    HID_USAGE(HID_USAGE_DESKTOP_JOYSTICK),                               \
+    HID_COLLECTION(HID_COLLECTION_APPLICATION),                          \
+        HID_USAGE(HID_USAGE_DESKTOP_POINTER),                            \
+        HID_COLLECTION(HID_COLLECTION_PHYSICAL),                         \
+            HID_USAGE_PAGE(HID_USAGE_PAGE_DESKTOP),                      \
+            HID_USAGE(HID_USAGE_DESKTOP_X),                              \
+            HID_USAGE(HID_USAGE_DESKTOP_Y),                              \
+            HID_LOGICAL_MIN(0x81), HID_LOGICAL_MAX(0x7f),                \
+            HID_REPORT_SIZE(8), HID_REPORT_COUNT(2),                     \
+            HID_INPUT(HID_DATA | HID_VARIABLE | HID_ABSOLUTE),           \
+            HID_USAGE_PAGE(HID_USAGE_PAGE_BUTTON),                       \
+            HID_USAGE_MIN(1), HID_USAGE_MAX(16),                         \
+            HID_LOGICAL_MIN(0), HID_LOGICAL_MAX(1),                      \
+            HID_REPORT_SIZE(1), HID_REPORT_COUNT(16),                    \
+            HID_INPUT(HID_DATA | HID_VARIABLE | HID_ABSOLUTE),           \
+        HID_COLLECTION_END,                                              \
+    HID_COLLECTION_END
+
+#define VOLTEX_PICO_REPORT_DESC_LIGHTS                                     \
+    HID_USAGE_PAGE(HID_USAGE_PAGE_DESKTOP),                                \
+    HID_USAGE(0x00),                                                       \
+    HID_COLLECTION(HID_COLLECTION_APPLICATION),                            \
+        HID_REPORT_ID(REPORT_ID_LIGHTS)                                    \
+        HID_REPORT_COUNT(19), HID_REPORT_SIZE(8),                          \
+        HID_LOGICAL_MIN(0x00), HID_LOGICAL_MAX_N(0x00ff, 2),               \
+        HID_USAGE_PAGE(HID_USAGE_PAGE_ORDINAL),                            \
+        HID_STRING_MINIMUM(6), HID_STRING_MAXIMUM(24),                     \
+        HID_USAGE_MIN(1), HID_USAGE_MAX(255),                              \
+        HID_OUTPUT(HID_DATA | HID_VARIABLE | HID_ABSOLUTE),                \
+        HID_REPORT_COUNT(1), HID_REPORT_SIZE(8), /* Padding */             \
+        HID_INPUT(HID_CONSTANT | HID_VARIABLE | HID_ABSOLUTE),             \
+    HID_COLLECTION_END
+
+void enable_konami_spoof();
 
 #endif /* USB_DESCRIPTORS_H_ */
+

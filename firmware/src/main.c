@@ -84,10 +84,27 @@ struct __attribute__((packed)) {
     uint8_t joy[2];
 } hid_report, old_hid_report;
 
+struct __attribute__((packed)) {
+    uint8_t joy[2];
+    uint16_t buttons;
+} hid_spoof_report;
+
 #define AUX_1_MASK 0x0100
 #define AUX_2_MASK 0x0080
 #define ALL_BUTTON_MASK 0x7f
 #define VIRTUAL_BUTTON_SHIFT 7
+
+static bool do_hid_report()
+{
+    if (voltex_runtime.hid.spoofed) {
+        hid_spoof_report.buttons = hid_report.buttons;
+        hid_spoof_report.joy[0] = hid_report.joy[0];
+        hid_spoof_report.joy[1] = hid_report.joy[1];
+        return tud_hid_report(0, &hid_spoof_report, sizeof(hid_spoof_report));
+    } else {
+        return tud_hid_n_report(0, REPORT_ID_JOYSTICK, &hid_report, sizeof(hid_report));
+    }
+}
 
 static void hid_update()
 {
@@ -115,7 +132,7 @@ static void hid_update()
 
     if (tud_hid_ready()) {
         if ((memcmp(&hid_report, &old_hid_report, sizeof(hid_report)) != 0) &&
-             tud_hid_report(REPORT_ID_JOYSTICK, &hid_report, sizeof(hid_report))) {
+             do_hid_report()) {
             old_hid_report = hid_report;
         }
     }
@@ -164,15 +181,30 @@ static void update_check()
     reset_usb_boot(0, 2);
 }
 
+static void mode_check()
+{
+    button_update();
+    uint16_t button = button_read();
+    if (button & (1 << 7)) {
+        voltex_cfg->hid.spoof = true;
+        config_changed();
+    } else if (button & (1 << 8)) {
+        voltex_cfg->hid.spoof = false;
+        config_changed();
+    }
+
+    voltex_runtime.hid.spoofed = voltex_cfg->hid.spoof;
+    if (voltex_runtime.hid.spoofed) {
+        enable_konami_spoof();
+    }
+}
+
 void init()
 {
     sleep_ms(50);
     board_init();
 
     update_check();
-
-    tusb_init();
-    stdio_init_all();
 
     config_init();
     mutex_init(&core1_io_lock);
@@ -182,6 +214,11 @@ void init()
     button_init();
     spin_init();
     hebtn_init();
+
+    mode_check();
+
+    tusb_init();
+    stdio_init_all();
 
     cli_init("voltex_pico>", "\n   << Voltex Pico Controller >>\n"
                             " https://github.com/whowechina\n\n");
