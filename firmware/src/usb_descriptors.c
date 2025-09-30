@@ -167,7 +167,7 @@ static char serial_number_str[24] = "123456\0";
 static const char *string_desc_arr[] = {
     (const char[]){0x09, 0x04},  // 0: is supported language is English (0x0409)
     "WHowe",                     // 1: Manufacturer
-    "Voltex Pico",                // 2: Product
+    "Voltex Pico",               // 2: Product
     serial_number_str,           // 3: Serials, use chip ID
     "Voltex Pico",
     "Voltex Pico CLI Port",
@@ -233,4 +233,5 @@ void enable_konami_spoof()
     konami_spoof = true;
     string_desc_arr[1] = "Konami Amusement";
     string_desc_arr[2] = "SOUND VOLTEX controller";
+    string_desc_arr[4] = "SOUND VOLTEX controller";
 }
