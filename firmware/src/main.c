@@ -97,7 +97,8 @@ struct __attribute__((packed)) {
 static bool do_hid_report()
 {
     if (voltex_runtime.hid.spoofed) {
-        hid_spoof_report.buttons = hid_report.buttons;
+        hid_spoof_report.buttons = hid_report.buttons & 0x3f;
+        hid_spoof_report.buttons |= (hid_report.buttons & 0x40) ? 0x100 : 0;
         hid_spoof_report.joy[0] = hid_report.joy[0];
         hid_spoof_report.joy[1] = hid_report.joy[1];
         return tud_hid_report(0, &hid_spoof_report, sizeof(hid_spoof_report));

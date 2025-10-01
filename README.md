@@ -18,6 +18,7 @@ Special thanks to community projects and developers.
 And also these projects:
 * RP_Silicon_KiCad: https://github.com/HeadBoffin/RP_Silicon_KiCad
 * Type-C: https://github.com/ai03-2725/Type-C.pretty
+* USBemani: https://github.com/progmem/usbemani (for the Spoof mode USB descriptor)
 
 ## My Other Projects
 You can check out my other cool projects.
