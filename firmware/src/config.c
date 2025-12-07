@@ -22,6 +22,10 @@ static voltex_cfg_t default_cfg = {
     .light = {
         .level = 128,
     },
+    .trigger = {
+        .on = {12, 12, 12, 12, 12, 12},
+        .off = {20, 20, 20, 20, 20, 20},
+    },
 };
 
 voltex_runtime_t voltex_runtime;
