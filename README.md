@@ -218,6 +218,7 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 * Just plug it in and play.
 * You can set knob resolution by `knob rate` command.
 * You can set trigger and reset point by `trigger` command (only for Hall Effect switch version).
+* Hold the left auxiliary button while plugging in to enter Konami spoof mode; the right for regular mode.
 
 ## CAD Source File
 I'm using OnShape free subscription. It's powerful but it can't archive original designs to local, so I can only share the link here. All model files are exported from this online document.  
