@@ -115,6 +115,7 @@ https://discord.gg/M8f2PPQFEA
 * Layer height: 0.2mm
 * Support: No, unless mentioned.
 * Files are always in millimeter unit, not inch.
+* Files with `_Insert` in their names means it's for heatset inserts. M2 inserts are M2\*3mm\*3mm, M3 inserts are M3\*4mm\*4mm.
 
 #### 2x Knob Parts
 * Knob: `Production\3DPrint\* - Knob.stl`, clear, semi-transparent. Print it upside down. 
@@ -124,6 +125,7 @@ https://discord.gg/M8f2PPQFEA
 #### Button Parts
 For regular switch build, choose Choc V1 or Choc v2 keycaps according to your switch type. For Hall Effect switch build, always choose Choc V2 ones.
 **For all button keycaps, print them upside down.**
+Note that if your switches are a little taller than usual, you need to use the `*_TallFix.stl` files for Main and FX buttons.
 
 * Main BT: `Production\3DPrint\* - BT Choc V?.stl`, white.
 * FX BT: `Production\3DPrint\* - FX-? Choc V?.stl`, smokey transparent. Support required.

@@ -114,6 +114,7 @@ https://discord.gg/M8f2PPQFEA
 * 层高：0.2mm
 * 支撑：否，除非另有说明。
 * 文件始终使用毫米单位，而非英寸。
+* 带有 `_Insert` 字样的文件表示它是需要用热熔螺母的。M2 螺母是 M2\*3mm\*3mm，M3 螺母是 M3\*4mm\*4mm。
 
 #### 2x 旋钮部件
 * 旋钮：`Production\3DPrint\* - Knob.stl`，透明，半透明。倒置打印。
@@ -123,6 +124,7 @@ https://discord.gg/M8f2PPQFEA
 #### 按钮部件
 对于常规机械轴版本，根据您的轴体类型选择 Choc V1 或 Choc v2 键帽。对于磁轴版本，始终选择 Choc V2。
 **所有按钮键帽都倒置打印。**
+注意如果您的轴体比通常的稍高，主按钮和 FX 按钮需要使用 `*_TallFix.stl` 文件。
 
 * 主 BT：`Production\3DPrint\* - BT Choc V?.stl`，白色。
 * FX BT：`Production\3DPrint\* - FX-? Choc V?.stl`，烟雾透明。需要支撑。
