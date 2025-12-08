@@ -167,11 +167,11 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 
 ### Assembly
 #### Other components needed
-* 6x **M2.5\*(14mm-18mm) screws** for fixing the magnet seat to the knob.
+* 6x **M2.5\*(14mm-16mm) screws** for fixing the magnet seat to the knob.
 * 8x **M2\*6mm screws** for fixing the bearing (bearing fixer to the wing cover).
-* 6x **M2\*(8mm-10mm) screws** for fixing wing bases to the wing cover.
+* 6x **M2\*8mm screws** for fixing wing bases to the wing cover, **M2\*6mm** if using heatset inserts.
 * 12x **M3\*(4mm-5mm) screws** for fixing the PCB to the base parts.
-* 10x **M3\*(8mm-9mm) screws** for fixing the base, wing base, support and the panel.
+* 10x **M3\*8mm screws** for fixing the base, wing base, support and the panel.
 * 2x 6702zz (15x21x4mm) bearings for the knobs.
 * 2x round magnets, 5mm diameter, 1.5mm or 2mm tall, MUST be radially/diametrically magnetized (N-S poles on the curved side).
 * Some thin tape (such as acetate tape or high-temp teflon tape) to fix the magnets in place.
