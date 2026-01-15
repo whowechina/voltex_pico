@@ -63,7 +63,7 @@ https://discord.gg/M8f2PPQFEA
 * 50x 0603 0.1uF capacitors (all capacitors on the PCB, most of them are optional).
 * 4x 0603 5.1kohm resistors (R1, R2, R3, R4).
 * 12x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
-* 1x Kailh Choc switch for the START button (B7).
+* 1x Kailh Choc switch for the START button (B7), and a matching blank translucent keycap.
 * 2x ALPS SKHHBVA010 or compatible (6\*6\*7mm) tactile switches for the AUX buttons (B8, B9).
 * Some soft wires to connect the main PCB to the sensor PCBs.
 
@@ -129,7 +129,6 @@ Note that if your switches are a little taller than usual, you need to use the `
 
 * Main BT: `Production\3DPrint\* - BT Choc V?.stl`, white.
 * FX BT: `Production\3DPrint\* - FX-? Choc V?.stl`, smokey transparent. Support required.
-* Start: `Production\3DPrint\* - START Choc V?.stl`, clear, semi-transparent.
 
 #### Wing Parts
 * Wing Base: `Production\3DPrint\* - * Wing Base.stl`, black.

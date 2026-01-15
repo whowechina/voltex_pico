@@ -62,7 +62,7 @@ https://discord.gg/M8f2PPQFEA
 * 50x 0603 0.1uF 电容（PCB 上所有电容，大部分是可选的）。
 * 4x 0603 5.1kohm 电阻 (R1, R2, R3, R4)。
 * 12x U 形状的 2U 卫星轴钢丝，也可以从普通 2U MX 卫星轴里拆。
-* 1x 凯华 Choc 矮轴用于 START 按钮 (B7)。
+* 1x 凯华 Choc 矮轴用于 START 按钮 (B7)，及一个配套的无字的半透明键帽。
 * 2x ALPS SKHHBVA010 或兼容的（6\*6\*7mm）轻触开关用于 AUX 按钮 (B8, B9)。
 * 一些软线用来连接主 PCB 和传感器 PCB。
 
@@ -128,7 +128,6 @@ https://discord.gg/M8f2PPQFEA
 
 * 主 BT：`Production\3DPrint\* - BT Choc V?.stl`，白色。
 * FX BT：`Production\3DPrint\* - FX-? Choc V?.stl`，烟雾透明。需要支撑。
-* Start：`Production\3DPrint\* - START Choc V?.stl`，透明，半透明。
 
 #### 侧翼部件
 * 侧翼底座：`Production\3DPrint\* - * Wing Base.stl`，黑色。
