@@ -4476,12 +4476,6 @@
 		(uuid "8bb1da7f-2b09-471c-af3f-4f8af71e6ab0")
 	)
 	(junction
-		(at 220.98 238.125)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8bba976a-b271-47a5-bd6d-8f30b235ec9e")
-	)
-	(junction
 		(at 318.135 159.385)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4516,6 +4510,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "93e10fb8-26bb-4950-80cd-3e8d5fab30a5")
+	)
+	(junction
+		(at 220.345 238.125)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "93f6cfda-3f52-4928-8aa1-e91dec9d306d")
 	)
 	(junction
 		(at 127 160.02)
@@ -5197,7 +5197,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 248.285) (xy 224.79 248.285)
+			(xy 220.345 248.285) (xy 224.79 248.285)
 		)
 		(stroke
 			(width 0)
@@ -5957,13 +5957,13 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 238.125) (xy 229.87 238.125)
+			(xy 220.345 235.585) (xy 220.345 238.125)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2e3988b5-a31a-4788-aea9-9a935e252952")
+		(uuid "2e47b882-f58a-4f25-b717-25c71e5aeef2")
 	)
 	(wire
 		(pts
@@ -6074,6 +6074,16 @@
 			(type default)
 		)
 		(uuid "36a38b5e-b224-45c5-8a0b-94ab887aca25")
+	)
+	(wire
+		(pts
+			(xy 220.345 238.125) (xy 229.87 238.125)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37e8c8a7-9088-4cce-a677-cadd333950c7")
 	)
 	(wire
 		(pts
@@ -7547,7 +7557,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 245.745) (xy 227.33 245.745)
+			(xy 220.345 245.745) (xy 227.33 245.745)
 		)
 		(stroke
 			(width 0)
@@ -7757,7 +7767,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 240.665) (xy 229.87 240.665)
+			(xy 220.345 240.665) (xy 229.87 240.665)
 		)
 		(stroke
 			(width 0)
@@ -7997,7 +8007,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 243.205) (xy 229.87 243.205)
+			(xy 220.345 243.205) (xy 229.87 243.205)
 		)
 		(stroke
 			(width 0)
@@ -8427,16 +8437,6 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 238.125) (xy 220.98 238.125)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e76436d8-134d-4bb3-9591-aed69404e85f")
-	)
-	(wire
-		(pts
 			(xy 342.9 186.69) (xy 342.9 189.23)
 		)
 		(stroke
@@ -8574,16 +8574,6 @@
 			(type default)
 		)
 		(uuid "ef771af6-2c53-42ad-976d-23775d735e5e")
-	)
-	(wire
-		(pts
-			(xy 219.71 250.825) (xy 220.345 250.825)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f0bb8baa-3121-41ba-b4bd-6379fc9f476f")
 	)
 	(wire
 		(pts
@@ -8774,16 +8764,6 @@
 			(type default)
 		)
 		(uuid "f9e15fd8-757f-4178-be02-7ec77662d51a")
-	)
-	(wire
-		(pts
-			(xy 220.98 236.22) (xy 220.98 238.125)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa038d67-e48d-41ef-97a4-f94bced635c2")
 	)
 	(wire
 		(pts
@@ -9186,7 +9166,7 @@
 		(uuid "a7f9727e-948d-4c83-80a7-a7e7a0397b6b")
 	)
 	(label "V1"
-		(at 220.98 236.22 0)
+		(at 220.345 235.585 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11709,8 +11689,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Socket")
-		(at 214.63 243.205 0)
-		(mirror y)
+		(at 215.265 245.745 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11718,7 +11697,7 @@
 		(dnp no)
 		(uuid "44c11506-d443-468b-96ec-a3318a1a4d38")
 		(property "Reference" "J3"
-			(at 212.725 236.855 0)
+			(at 213.36 252.095 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11727,7 +11706,7 @@
 			)
 		)
 		(property "Value" "Conn_01x06_Socket"
-			(at 212.725 245.7449 0)
+			(at 213.36 243.2051 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11736,8 +11715,8 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "voltex_pico:Solder_6P"
-			(at 214.63 243.205 0)
+		(property "Footprint" "voltex_pico:FPC6P1.0mm"
+			(at 215.265 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11746,7 +11725,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 214.63 243.205 0)
+			(at 215.265 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11755,7 +11734,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
-			(at 214.63 243.205 0)
+			(at 215.265 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11888,7 +11867,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "voltex_pico:Solder_6P"
+		(property "Footprint" "voltex_pico:FPC6P1.0mm"
 			(at 234.95 243.205 0)
 			(effects
 				(font
@@ -14263,7 +14242,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "voltex_pico:Solder_6P"
+		(property "Footprint" "voltex_pico:FPC6P1.0mm"
 			(at 250.825 243.205 0)
 			(effects
 				(font
@@ -17259,7 +17238,8 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Socket")
-		(at 270.51 243.205 0)
+		(at 270.51 245.745 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17267,7 +17247,7 @@
 		(dnp no)
 		(uuid "e3cdd614-c944-4375-8297-53a537e50961")
 		(property "Reference" "J4"
-			(at 272.415 236.855 0)
+			(at 272.415 252.095 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17276,7 +17256,7 @@
 			)
 		)
 		(property "Value" "Conn_01x06_Socket"
-			(at 272.415 245.7449 0)
+			(at 272.415 243.2051 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17285,8 +17265,8 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "voltex_pico:Solder_6P"
-			(at 270.51 243.205 0)
+		(property "Footprint" "voltex_pico:FPC6P1.0mm"
+			(at 270.51 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17295,7 +17275,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 270.51 243.205 0)
+			(at 270.51 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17304,7 +17284,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
-			(at 270.51 243.205 0)
+			(at 270.51 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
