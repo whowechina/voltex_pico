@@ -22,11 +22,11 @@
 ## 其他项目
 你也可以查看我其他的酷炫项目。
 
-<img src="https://github.com/whowechina/popn_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_teeny/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chu_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/mai_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/diva_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/aic_pico/raw/main/doc/main.gif" height="100px"> <img src="https://github.com/whowechina/groove_pico/raw/main/doc/main.gif" height="100px">  <img src="https://github.com/whowechina/geki_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/musec_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/ju_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/bishi_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/nos_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/voltex_pico/raw/main/doc/main.jpg" height="100px">
+<img src="https://github.com/whowechina/popn_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chu_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/mai_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/diva_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/aic_pico/raw/main/doc/main.gif" height="100px"> <img src="https://github.com/whowechina/groove_pico/raw/main/doc/main.gif" height="100px">  <img src="https://github.com/whowechina/geki_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/musec_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/ju_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/bishi_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/nos_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/voltex_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chord_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/dance_pico/raw/main/doc/main.jpg" height="100px">
+<img src="https://github.com/whowechina/arcade_pico/raw/main/doc/main.jpg" height="100px">
 
 * Popn Pico: https://github.com/whowechina/popn_pico
 * IIDX Pico: https://github.com/whowechina/iidx_pico
-* IIDX Teeny: https://github.com/whowechina/iidx_teeny
 * Chu Pico: https://github.com/whowechina/chu_pico
 * Mai Pico: https://github.com/whowechina/mai_pico
 * Diva Pico: https://github.com/whowechina/diva_pico
@@ -38,6 +38,9 @@
 * Bishi Pico: https://github.com/whowechina/bishi_pico
 * Nos Pico: https://github.com/whowechina/nos_pico
 * Voltex Pico: https://github.com/whowechina/voltex_pico
+* Chord Pico: https://github.com/whowechina/chord_pico
+* Dance Pico: https://github.com/whowechina/dance_pico
+* Arcade Pico: https://github.com/whowechina/arcade_pico
 
 ## **声明** ##
 我在个人时间内制作了这个项目，没有任何经济利益或赞助。我将继续改进这个项目。我已尽我所能确保所有内容的准确性和功能性，但总有可能出现错误。如果你因使用这个开源项目而造成时间或金钱的损失，我不能负责。感谢你的理解。
@@ -64,7 +67,8 @@ https://discord.gg/M8f2PPQFEA
 * 12x U 形状的 2U 卫星轴钢丝，也可以从普通 2U MX 卫星轴里拆。
 * 1x 凯华 Choc 矮轴用于 START 按钮 (B7)，及一个配套的无字的半透明键帽。
 * 2x ALPS SKHHBVA010 或兼容的（6\*6\*7mm）轻触开关用于 AUX 按钮 (B8, B9)。
-* 一些软线用来连接主 PCB 和传感器 PCB。
+* 4x 1.0mm 间距 6P FPC 连接器，下接触，前翻盖。
+* 2x 1.0mm 间距 6P FPC 排线，长度 25mm 到 30mm；更长一些也可以，只要适当折弯即可。
 
 * **以下仅适用于常规机械轴版本。**
   * 6x 凯华 Choc 矮轴。4 个 BT 按钮选择重力轴（70gf），2 个 FX 按钮选择常规力度的轴（50gf）(B1-B6)。
@@ -100,12 +104,12 @@ https://discord.gg/M8f2PPQFEA
 * 侧面 LED 和旋钮 LED 应以彩虹模式点亮。
 * 按钮 LED 会响应按钮按压（磁轴需要临时把轴体上去并校准）。
 * Voltex Pico 应被识别为 USB HID 设备，这里是测试页面。  
-  https://greggman.github.io/html5-gamepad-test/
+  https://whowechina.github.io/iidx_pico/Tools/gamepad_test.html
 * 将磁性螺丝刀尖端靠近 TMAG5273 传感器，您会注意到测试页面中相应的轴会移动。两个传感器都测试一下。
 
 ### 传感器 PCB 分离和焊接
 * 如果一切正常，您可以从主板上切断（甚至直接掰下来）2 个小传感器板。
-* 用较短的软电线把主 PCB 和传感器 PCB 连接起来。  
+* 用 FPC 排线连接传感器 PCB 和主 PCB。老版本的 PCB 没有 FPC 连接器，所以要焊接细软的电线来连接。  
   <img src="doc/sensor_pcb.jpg" width="80%">
 
 ### 3D 打印
@@ -209,7 +213,7 @@ Voltex Pico 的大 BT 按钮以及 FX 按钮都用了这种新的平衡机制。
 * 第一次烧写固件，请在连接 USB 到 PC 时按住 BOOTSEL 按钮，会出现一个名为"RPI-RP2"的磁盘。将 UF2 固件二进制文件拖入其中就好了。底面有一个小孔，它正对着 BOOTSEL 按钮。
 * 如果它已经在运行 Voltex Pico 固件，您可以在命令行中使用"update"或在连接 USB 时按住至少 4 个按钮进入更新模式。
 * 要访问命令行，您可以使用此 Web 串行终端连接到控制器的 USB 串行端口。（注意："?" 用于帮助）  
-  https://googlechromelabs.github.io/serial-terminal/
+  https://whowechina.github.io/iidx_pico/Tools/cli_tool.html
 
 ### 使用方法
 * 如果您构建了霍尔效应开关版本，您需要先校准（`calibrate` 命令）。您可以在命令行中设置触发和复位点。

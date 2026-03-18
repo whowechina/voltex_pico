@@ -23,11 +23,11 @@ And also these projects:
 ## My Other Projects
 You can check out my other cool projects.
 
-<img src="https://github.com/whowechina/popn_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_teeny/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chu_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/mai_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/diva_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/aic_pico/raw/main/doc/main.gif" height="100px"> <img src="https://github.com/whowechina/groove_pico/raw/main/doc/main.gif" height="100px">  <img src="https://github.com/whowechina/geki_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/musec_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/ju_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/bishi_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/nos_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/voltex_pico/raw/main/doc/main.jpg" height="100px">
+<img src="https://github.com/whowechina/popn_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/iidx_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chu_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/mai_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/diva_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/aic_pico/raw/main/doc/main.gif" height="100px"> <img src="https://github.com/whowechina/groove_pico/raw/main/doc/main.gif" height="100px">  <img src="https://github.com/whowechina/geki_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/musec_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/ju_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/bishi_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/nos_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/voltex_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/chord_pico/raw/main/doc/main.jpg" height="100px"> <img src="https://github.com/whowechina/dance_pico/raw/main/doc/main.jpg" height="100px">
+<img src="https://github.com/whowechina/arcade_pico/raw/main/doc/main.jpg" height="100px">
 
 * Popn Pico: https://github.com/whowechina/popn_pico
 * IIDX Pico: https://github.com/whowechina/iidx_pico
-* IIDX Teeny: https://github.com/whowechina/iidx_teeny
 * Chu Pico: https://github.com/whowechina/chu_pico
 * Mai Pico: https://github.com/whowechina/mai_pico
 * Diva Pico: https://github.com/whowechina/diva_pico
@@ -39,6 +39,9 @@ You can check out my other cool projects.
 * Bishi Pico: https://github.com/whowechina/bishi_pico
 * Nos Pico: https://github.com/whowechina/nos_pico
 * Voltex Pico: https://github.com/whowechina/voltex_pico
+* Chord Pico: https://github.com/whowechina/chord_pico
+* Dance Pico: https://github.com/whowechina/dance_pico
+* Arcade Pico: https://github.com/whowechina/arcade_pico
 
 ## **Disclaimer** ##
 I made this project in my personal time with no financial benefit or sponsorship. I will continue to improve the project. I have done my best to ensure that everything is accurate and functional, there's always a chance that mistakes may occur. I cannot be held responsible for any loss of your time or money that may result from using this open source project. Thank you for your understanding.
@@ -65,7 +68,8 @@ https://discord.gg/M8f2PPQFEA
 * 12x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
 * 1x Kailh Choc switch for the START button (B7), and a matching blank translucent keycap.
 * 2x ALPS SKHHBVA010 or compatible (6\*6\*7mm) tactile switches for the AUX buttons (B8, B9).
-* Some soft wires to connect the main PCB to the sensor PCBs.
+* 4x 1.0mm 6-pin FPC connectors, bottom contact, front flip.
+* 2x 1.0mm 6-pin FPC cables, 25mm to 30mm long. Longer ones are also fine if bent properly.
 
 * The following is for regular switch build.
   * 6x Kailh Choc low-profile switches. Choose heavy ones (70gf) for 4 BT buttons, and regular ones (50gf) for 2 FX buttons (B1-B6).
@@ -101,12 +105,12 @@ https://discord.gg/M8f2PPQFEA
 * Side LEDs and Knob LEDs should light up in a rainbow pattern.
 * Button LEDs respond to the button presses (magnetic switches need to be temporarily put on and calibrated).
 * Voltex Pico should be recognized as a USB HID device, here's the test page.  
-  https://greggman.github.io/html5-gamepad-test/
+  https://whowechina.github.io/iidx_pico/Tools/gamepad_test.html
 * Move a magnetic screwdriver tip close to the TMAG5273 sensor, you'll notice the corresponding axis move in the test page. Please check both sensors.
 
 ### Sensor PCB Separation and Soldering
 * If everything works fine, you can cut off (or even bend and snap) 2 small sensor boards from the main board.
-* Solder short flexible wires to connect the main PCB and sensor PCBs.  
+* Connect the sensor PCBs to the main PCB using FPC cables. Older PCB revisions do not have FPC connectors, so solder short flexible wires instead.  
   <img src="doc/sensor_pcb.jpg" width="80%">
 
 ### 3D Printing
@@ -210,7 +214,7 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 * For the new build, hold the BOOTSEL button while connect the USB to a PC, there will be a disk named "RPI-RP2" show up. Drag the UF2 firmware binary file into it. That's it. There's a small hole at the bottom side, it is facing right to the BOOTSEL button.
 * If it's already running Voltex Pico firmware, you can either use "update" in command line or hold down at least 4 buttons while connecting to USB to enter update mode.
 * To access the command line, you can use this Web Serial Terminal to connect to the USB serial port of the controller. (Note: "?" is for help)  
-  https://googlechromelabs.github.io/serial-terminal/
+  https://whowechina.github.io/iidx_pico/Tools/cli_tool.html
 
 ### Usage
 * If you built a Hall Effect switch version, you need to calibrate first (`calibrate` command). You can set trigger and reset point in command line.
