@@ -200,6 +200,12 @@ static void mode_check()
     }
 }
 
+static void pico_led_off()
+{
+    gpio_init(25);
+    gpio_set_dir(25, GPIO_IN);
+}
+
 void init()
 {
     sleep_ms(50);
@@ -217,6 +223,7 @@ void init()
     hebtn_init();
 
     mode_check();
+    pico_led_off();
 
     tusb_init();
     stdio_init_all();
