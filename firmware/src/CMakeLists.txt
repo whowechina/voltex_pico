@@ -28,5 +28,5 @@ function(make_firmware board board_def)
                        COMMAND cp ${board}.uf2 ${CMAKE_CURRENT_LIST_DIR}/..)
 endfunction()
 
-make_firmware(voltex_pico BOARD_voltex_PICO)
+make_firmware(voltex_pico BOARD_VOLTEX_PICO)
 

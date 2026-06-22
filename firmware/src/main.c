@@ -33,22 +33,36 @@
 #include "spin.h"
 #include "hebtn.h"
 
+#define AUX_1_MASK 0x0100
+#define AUX_2_MASK 0x0080
+#define ALL_BUTTON_MASK 0x7f
+#define VIRTUAL_BUTTON_SHIFT 7
 
 static void run_lights()
 {
     uint16_t button = button_read();
-    for (int i = 0; i < 6; i++) {
+
+    bool left_shift = (button & AUX_1_MASK);
+    bool right_shift = (button & AUX_2_MASK);
+
+    bool slow_flash = (time_us_32() >> 17) & 1;
+
+    for (int i = 0; i < 7; i++) {
         if (hebtn_actuated(i) || (button & (1 << i))) {
-            light_set_button(i, rgb32(255, 0, 0, false), false);
+            uint32_t color = (i == 6) ? rgb32(0, 0, 255, false) : rgb32(255, 0, 0, false);
+            light_set_button(i, color, false);
+        } else if (left_shift && right_shift) {
+            uint32_t color = slow_flash ? rgb32(0, 64, 64, false) : 0;
+            light_set_button(i, color, false);
+        } else if (left_shift || right_shift) {
+            uint32_t color = slow_flash ? rgb32(64, 64, 0, false) : 0;
+            light_set_button(i, color, false);
         } else {
-        //    uint8_t travel = hebtn_travel_byte(i);
-        //    light_set_button(i, rgb32_from_hsv(0, 0, travel), false);
             uint32_t phase = time_us_32() >> 14;
             uint32_t rainbow = rgb32_from_hsv(phase + i * 30, 255, 64);
             light_set_button(i, rainbow, false);
         }
     }
-    light_set_button(6, button & (1 << 6) ? rgb32(0, 0, 255, false) : 0, false);
 
     uint16_t left = spin_read(0) * 255 / 360 / 16;
     uint16_t right = spin_read(1) * 255 / 360 / 16;
@@ -63,6 +77,7 @@ static void run_lights()
         light_set_wing(0, i, color, false);
         light_set_wing(1, i, color, false);
     }
+
 }
 
 static mutex_t core1_io_lock;
@@ -88,11 +103,6 @@ struct __attribute__((packed)) {
     uint8_t joy[2];
     uint16_t buttons;
 } hid_spoof_report;
-
-#define AUX_1_MASK 0x0100
-#define AUX_2_MASK 0x0080
-#define ALL_BUTTON_MASK 0x7f
-#define VIRTUAL_BUTTON_SHIFT 7
 
 static bool do_hid_report()
 {
