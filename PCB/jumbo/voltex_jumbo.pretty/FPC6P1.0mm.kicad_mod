@@ -1,0 +1,208 @@
+(footprint "FPC6P1.0mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "TE FPC connector, 06 bottom-side contacts, 1.0mm pitch, 1.0mm height, SMT, http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=84952&DocType=Customer+Drawing&DocLang=English&DocFormat=pdf&PartCntxt=84952-4")
+	(tags "te fpc 84952")
+	(property "Reference" "REF**"
+		(at 0 -4 0)
+		(layer "F.SilkS")
+		(uuid "88316c9b-b2a6-48f5-af12-ad21c6c6fe37")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "FPC6P1.0mm"
+		(at 0 7.7 0)
+		(layer "F.Fab")
+		(uuid "1c04bdf8-3285-47f8-94bc-074d5d4999d4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d2083925-f1bc-4dc2-923d-ac222c3d8607")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e77e397d-1282-4c6a-bd13-b7b431b3838a")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -5.4 -1.2)
+		(end -5.4 -1)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "3255d3e4-9d1c-48f0-ba28-84282e605e95")
+	)
+	(fp_line
+		(start -5.4 3)
+		(end -5.4 3.4)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "e673e3ba-3146-4a4e-adfe-5005591dad81")
+	)
+	(fp_line
+		(start -5.4 3.4)
+		(end 5.4 3.4)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "b095b534-759d-4880-b61b-3765ea6e9c37")
+	)
+	(fp_line
+		(start -3 -1.2)
+		(end -5.4 -1.2)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "9748fc92-9466-48b1-b031-2c5860a32c48")
+	)
+	(fp_line
+		(start 3 -1.2)
+		(end 5.4 -1.2)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "64af26e0-0910-486e-b94d-bf7bf5ac62f4")
+	)
+	(fp_line
+		(start 5.4 -1.2)
+		(end 5.4 -1)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "b39d9b38-d742-495a-a80c-24947d7c6518")
+	)
+	(fp_line
+		(start 5.4 3.4)
+		(end 5.4 3)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "6da54e85-e04c-4740-ac89-2151768cce62")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 1.9 0)
+		(layer "F.Fab")
+		(uuid "ce485396-50db-49c9-888a-117613d43731")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at 2.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "ce43b383-3b95-486f-b53b-d20bddb34be2")
+	)
+	(pad "2" smd rect
+		(at 1.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "78740bcd-f482-4c95-baf9-28b29bd6b9ac")
+	)
+	(pad "3" smd rect
+		(at 0.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "ba7069d8-a596-47ee-8905-1d5f44ea7963")
+	)
+	(pad "4" smd rect
+		(at -0.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "c29ccff2-cede-4a0c-9f64-1c9fd32d183a")
+	)
+	(pad "5" smd rect
+		(at -1.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "7e5f0902-399d-4a0a-bb8c-bcfca69b436c")
+	)
+	(pad "6" smd rect
+		(at -2.5 -1.9 180)
+		(size 0.61 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "9fe58bdf-665f-4c83-907e-aef92bbba0ba")
+	)
+	(pad "MP" smd rect
+		(at -5.49 1)
+		(size 2 3.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "90cdfbae-279a-4b2c-ba25-cdfec2030b69")
+	)
+	(pad "MP" smd rect
+		(at 5.49 1)
+		(size 2 3.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "aa30abe8-9d94-48a9-8e80-20704fa672b5")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Connector_FFC-FPC.3dshapes/TE_84952-6_1x06-1MP_P1.0mm_Horizontal.step"
+		(hide yes)
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/3dmodels/FPC6P_1.0mm_Bottom_Contact_Flip.stp"
+		(offset
+			(xyz 0 0.75 1.7)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
+)

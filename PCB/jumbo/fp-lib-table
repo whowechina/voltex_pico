@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "voltex_jumbo")(type "KiCad")(uri "${KIPRJMOD}/voltex_jumbo.pretty")(options "")(descr ""))
+  (lib (name "Type-C")(type "KiCad")(uri "${KIPRJMOD}/Type-C.pretty")(options "")(descr ""))
+)
