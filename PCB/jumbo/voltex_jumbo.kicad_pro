@@ -702,7 +702,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "../../Production/PCB/pico/",
+      "plot": "../../Production/PCB/jumbo/",
       "pos_files": "../../Production/PCB/voltex_jumbo/",
       "specctra_dsn": "",
       "step": "voltex_jumbo_3d.step",
@@ -859,7 +859,7 @@
         "uuid": "2e3f5573-c264-4a8b-a2f0-0e6473d39aad"
       }
     ],
-    "used_designators": "C5-6",
+    "used_designators": "C5-6,C13-18,JL2,JL5,#PWR10,#PWR12-13",
     "variants": []
   },
   "sheets": [
