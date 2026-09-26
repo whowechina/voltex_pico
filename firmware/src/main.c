@@ -35,12 +35,30 @@
 
 #define AUX_1_MASK 0x0100
 #define AUX_2_MASK 0x0080
+#define START_MASK 0x0040
+#define START_2_MASK 0x0200
+
 #define ALL_BUTTON_MASK 0x7f
 #define VIRTUAL_BUTTON_SHIFT 7
 
+static uint16_t button_mix_starts(uint16_t buttons)
+{
+    bool start = (buttons & START_MASK);
+    bool start_2 = (buttons & START_2_MASK);
+    buttons &= ~(START_MASK | START_2_MASK);
+
+    bool mixed_start = (voltex_cfg->start.mix == START_MIX_AND) ?
+                       (start && start_2) : (start || start_2);
+    if (mixed_start) {
+        buttons |= START_MASK;
+    }
+
+    return buttons;
+}
+
 static void run_lights()
 {
-    uint16_t button = button_read();
+    uint16_t button = button_mix_starts(button_read());
 
     bool left_shift = (button & AUX_1_MASK);
     bool right_shift = (button & AUX_2_MASK);
@@ -119,7 +137,7 @@ static bool do_hid_report()
 
 static void hid_update()
 {
-    uint32_t buttons = button_read();
+    uint32_t buttons = button_mix_starts(button_read());
     for (int i = 0; i < 6; i++) {
         if (hebtn_actuated(i)) {
             buttons |= (1 << i);
@@ -196,10 +214,10 @@ static void mode_check()
 {
     button_update();
     uint16_t button = button_read();
-    if (button & (1 << 7)) {
+    if (button & AUX_2_MASK) {
         voltex_cfg->hid.spoof = true;
         config_changed();
-    } else if (button & (1 << 8)) {
+    } else if (button & AUX_1_MASK) {
         voltex_cfg->hid.spoof = false;
         config_changed();
     }

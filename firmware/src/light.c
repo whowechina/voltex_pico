@@ -22,7 +22,7 @@
 
 #define HID_TIMEOUT 2*1000*1000
 
-static uint32_t buf_main[9]; // BT * 4 + FX * 2 + START + AUX * 2
+static uint32_t buf_main[10]; // BT * 4 + FX * 2 + START + AUX * 2 + START2
 static uint32_t buf_left[9]; // Side * 4 + Knob * 5
 static uint32_t buf_right[9]; // Side * 4 + Knob * 5
 
@@ -149,7 +149,15 @@ void light_set_button(uint8_t index, uint32_t color, bool hid)
     if (index >= count_of(buf_main)) {
         return;
     }
+
+    if ((led_map[index] < 0) || (led_map[index] >= count_of(buf_main))) {
+        return;
+    }
+
     buf_main[led_map[index]] = apply_level(color);
+    if (index == 6) { // Also light the right START
+        buf_main[led_map[9]] = apply_level(color);
+    }
 }
 
 void light_set_wing(uint8_t side, uint8_t index, uint32_t color, bool hid)

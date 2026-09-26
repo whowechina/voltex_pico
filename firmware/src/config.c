@@ -26,12 +26,19 @@ static voltex_cfg_t default_cfg = {
         .on = {12, 12, 12, 12, 12, 12},
         .off = {20, 20, 20, 20, 20, 20},
     },
+    .start = {
+        .mix = START_MIX_OR,
+    },
 };
 
 voltex_runtime_t voltex_runtime;
 
 static void config_loaded()
 {
+    if (voltex_cfg->start.mix > START_MIX_AND) {
+        voltex_cfg->start.mix = START_MIX_OR;
+    }
+
     for (int i = 0; i < 6; i++) {
         if (voltex_cfg->trigger.on[i] > 35) {
             voltex_cfg->trigger.on[i] = 35;

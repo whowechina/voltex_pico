@@ -18,9 +18,9 @@
 
 #define SPIN_DEF { 12, 11 }
  
- /* BT * 4, FX * 2, START, AUX * 2 */
-#define BUTTON_DEF { 9, 8, 7, 6, 10, 5, 4, 3, 2 }
-#define BUTTON_LIGHT_MAP { 1, 2, 4, 5, 0, 6, 3, 7, 8 }
+ /* BT * 4, FX * 2, START, AUX * 2, START2 */
+#define BUTTON_DEF { 9, 8, 7, 6, 10, 5, 4, 3, 2, 16 }
+#define BUTTON_LIGHT_MAP { 1, 2, 4, 5, 0, 6, 3, -1, -1, 7 }
 
 #define ADC_MUX_EN 18
 #define ADC_MUX_A0 21

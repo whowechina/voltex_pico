@@ -9,6 +9,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+typedef enum {
+    START_MIX_OR = 0,
+    START_MIX_AND = 1,
+} start_mix_t;
+
 typedef struct {
     uint8_t rgb_hsv; // 0: RGB, 1: HSV
     uint8_t val[3]; // RGB or HSV
@@ -35,6 +40,9 @@ typedef struct __attribute__((packed)) {
     struct {
         bool spoof;
     } hid;
+    struct {
+        uint8_t mix;
+    } start;
 } voltex_cfg_t;
 
 typedef struct {
