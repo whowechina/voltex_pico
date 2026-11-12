@@ -75,6 +75,8 @@ https://discord.gg/M8f2PPQFEA
   * 2x 1.0mm 6-pin FPC cables, 25mm to 30mm long. Longer ones are also fine if bent properly.
 
 * For Voltex Jumbo only:
+  * 4x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
+  * 8x U-shape 3U stabilizer steel wires, they might bedifficult to find, you can use 2U instead (use correct 3D printing parts accordingly).
   * 8x SH1.0 4P horizontal surface mount connector.
   * 2x Kailh Choc switch for the START buttons (B4), and matching blank translucent keycaps.
   * 4x SH1.0 4P silicone cables, pin-to-pin straight-through (also called reverse orientation), 10cm in length.
