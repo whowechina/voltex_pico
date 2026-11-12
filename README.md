@@ -10,6 +10,7 @@ Features:
 * Hall Effect knobs.
 * Full HID light support.
 * Command line for configurations.
+* Two size versions: Voltex Jumbo is arcade size, Voltex Pico is about 85% of that.
 * All source files open.
 
 Thanks to many respected guys/companies who made their tools or materials free or open source (KiCad, OnShape, InkScape, Raspberry things).
@@ -56,45 +57,61 @@ https://discord.gg/M8f2PPQFEA
 
 ## HOW TO BUILD
 ### PCB and Components
-* Go JLCPCB and make order with the gerber zip files (latest `Production\PCB\voltex_pico_xxx.zip`), regular FR-4 board, black or white color, **1.6mm** thickness.  
+* Go JLCPCB and make order with the gerber zip files (latest `Production\PCB\voltex_xxx_vvv.zip`), regular FR-4 board, black or white color, **1.6mm** thickness. For Voltex Jumbo, you need 2 boards.  
 * 1x Rasberry Pico Pi Pico or pin-to-pin compatible clones (U1).  
   https://www.raspberrypi.com/products/raspberry-pi-pico
 * 1x USB Type-C socket (918-418K2023S40001 or KH-TYPE-C-16P)
-* 21x Reverse Mount WS2812B-3528 RGB LEDs (D1-D20).
-* 18x WS2812B-4020 side emitting RGB LEDs (DL1-DL9, DR1-DR9).
-* 2x TMAG-5273A1 or TMAG5273A2, in SOT23-6 (U3, U4).
 * 50x 0603 0.1uF capacitors (all capacitors on the PCB, most of them are optional).
 * 4x 0603 5.1kohm resistors (R1, R2, R3, R4).
-* 12x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
-* 1x Kailh Choc switch for the START button (B7), and a matching blank translucent keycap.
-* 2x ALPS SKHHBVA010 or compatible (6\*6\*7mm) tactile switches for the AUX buttons (B8, B9).
-* 4x 1.0mm 6-pin FPC connectors, bottom contact, front flip.
-* 2x 1.0mm 6-pin FPC cables, 25mm to 30mm long. Longer ones are also fine if bent properly.
+* 2x ALPS SKHHBVA010 or compatible (6\*6\*7mm) tactile switches for the AUX buttons.
+* 22x Reverse Mount WS2812B-3528 RGB LEDs (all corresponding PCB footprints).
+* 18x WS2812B-4020 side emitting RGB LEDs (DL1-DL9, DR1-DR9).
+* 2x TMAG-5273A1 or TMAG5273A2, in SOT23-6 (U3, U4).
+
+* For Voltex Pico only:
+  * 12x U-shape 2U stabilizer steel wires, you can also harvest them from regular 2U MX stabilizers.
+  * 1x Kailh Choc switch for the START button (B7), and a matching blank translucent keycap.
+  * 4x 1.0mm 6-pin FPC connectors, bottom contact, front flip.
+  * 2x 1.0mm 6-pin FPC cables, 25mm to 30mm long. Longer ones are also fine if bent properly.
+
+* For Voltex Jumbo only:
+  * 8x SH1.0 4P horizontal surface mount connector.
+  * 2x Kailh Choc switch for the START buttons (B4), and matching blank translucent keycaps.
+  * 4x SH1.0 4P silicone cables, pin-to-pin straight-through (also called reverse orientation), 10cm in length.
 
 * The following is for regular switch build.
-  * 6x Kailh Choc low-profile switches. Choose heavy ones (70gf) for 4 BT buttons, and regular ones (50gf) for 2 FX buttons (B1-B6).
+  * 6x Kailh Choc low-profile switches. Choose heavy ones (70gf+) for 4 BT buttons, and regular ones (50gf) for 2 FX buttons.
 
 * The following is for Hall Effect switch build.
   * 1x ADG708BRUZ, 8 to 1 analog switch, in TSSOP-16 (U2).
   * 1x LM4040 Shunt Voltage Reference, get one with 2.0, 2.1, or 2.5 reference voltage, in SOT23-3 (U6).
   * 1x LP5907MFX-4.5 or TPS7A2042PDBVR LDO, in SOT23-5 (U7).
-  * 6x SS49E or compatible linear Hall Effect sensors, in SOT23-3 (H1-H6).
-  * 1x 10ohm resistor, 0603 (R5).
+  * 6x SS49E or compatible linear Hall Effect sensors, in SOT23-3.
+  * 1x 1kohm resistor, 0603 (R5).
+  * 1x 50kohm resistor, 0603 (R6).
   * 1x 3.3V Zener diode, in SOD-123 or SOD-123F, such as BZT52H-C3V3 (Z1).
-  * 6x low profile magnetic switches, Gateron/NuPhy Jade Mini or Jade Pro Mini, or Kailh Star Magnetic Mini. (B1-B6).
+  * 6x low profile magnetic switches.
   * 4x heavy springs (60gF+) for low-profile switches, to replace the original ones in 4 BT switches. You may buy or harvest them from Kailh Choc heavy switches.
+  * For Voltex Jumbo, solder either "HALL" or "BT" SH1.0 connector on left side PCB, depending on whether you are using Hall Effect version or regular switch version.
 
-* This picture shows a soldered PCB (there might be changes in newer versions of PCB). It's a Hall Effect switch build.  
+* Here's a soldered Voltex Pico PCB for reference (there might be changes in newer versions of PCB). It's a Hall Effect switch build.  
   <img src="doc/pcb1.jpg" width="90%">  
   <img src="doc/pcb2.jpg" width="90%">
+
+* **Important notes for Voltex Jumbo.** For left side, only solder the components with no "R" mark, or only solder the component at the side with no "R" mark by the footprint; for right side, only solder the components with the "R" mark, or only solder the component at the side with the "R" mark by the footprint.
+
+* Here's a set of soldered Voltex Jumbo PCBs for reference (there might be changes in newer versions of PCB). It's a Hall Effect switch build. The order is left top, right top, left bottom, right bottom.  
+  <img src="doc/pcb_left1.jpg" width="45%">
+  <img src="doc/pcb_right1.jpg" width="45%">  
+  <img src="doc/pcb_right2.jpg" width="45%">
+  <img src="doc/pcb_left2.jpg" width="45%">
 
 ### Important Tips for Soldering
 * Be careful of 2 pin holes. It's a common oversight to either forget to solder them or to leave air bubbles during the process. To avoid this, solder slowly from one side of the hole, using minimal solder wire and a generous amount of flux.
 * Reverse mount LEDs are soldered at the bottom side of the PCB.
-* D4 actually requires a regular WS2812B-3528 RGB LED, not a reverse mount one. We can make one from a reverse mount one. Just bend the 4 feet to the bottom and it becomes a regular WS2812B-3528.  
+* On Voltex Pico, D4 actually requires a regular WS2812B-3528 RGB LED, not a reverse mount one. We can make one from a reverse mount one. Just bend the 4 feet to the bottom and it becomes a regular WS2812B-3528.  
   <img src="doc/3528bend.jpg" width="30%">
 * Be careful with WS2812B-4020 orientation. DL1 to DL4, and DR1 to DR4 are side facing, while the DL5 to DL9 and DR5 to DR9 are top facing. 
-* Leave the DCDC (U5) empty and short the corresponding BYPASS jumper.
 * You don't need to solder all the capacitors, it's fine to just solder the ones right beside ICs.
 * Z1 is to protect the Pico from excessive voltage, don't ignore it.
 * There are many LDOs and shunt voltage reference models, as long as they have the same form factor, pinout and voltage, you can use them. Best LDO voltages are 4.0 to 4.5V, they should not go higher than 4.5V, as the USB voltage under load could be lower than it. The shunt voltage reference should be 2.0 to 2.5V, roughly half of the LDO voltage.
@@ -108,18 +125,27 @@ https://discord.gg/M8f2PPQFEA
   https://whowechina.github.io/iidx_pico/Tools/gamepad_test.html
 * Move a magnetic screwdriver tip close to the TMAG5273 sensor, you'll notice the corresponding axis move in the test page. Please check both sensors.
 
-### Sensor PCB Separation and Soldering
+### Sensor PCB Separation and Soldering for Voltex Pico
 * If everything works fine, you can cut off (or even bend and snap) 2 small sensor boards from the main board.
 * Connect the sensor PCBs to the main PCB using FPC cables. Older PCB revisions do not have FPC connectors, so solder short flexible wires instead.  
   <img src="doc/sensor_pcb.jpg" width="80%">
 
+### Connecting Left and Right Side PCBs for Voltex Jumbo
+* Use the SH1.0 4P silicone cables to connect the left and right side PCBs, following the markings on the PCBs.
+* Right side "HALL_BT" goes to either "HALL" or "BT" at the left side PCB, depending on your build type.
+* Cables should go through the hinge silicone tube mentioned later.
+
 ### 3D Printing
-#### Printing parameters  
+#### General
 * PLA or PETG.
 * Layer height: 0.2mm
 * Support: No, unless mentioned.
 * Files are always in millimeter unit, not inch.
-* Files with `_Insert` in their names means it's for heatset inserts. M2 inserts are M2\*3mm\*3mm, M3 inserts are M3\*4mm\*4mm.
+* Description for the parts is mainly based on Voltex Pico. But it's similar for Voltex Jumbo, so separate instructions are not provided.
+* Files starting with "Voltex Pico" are for Voltex Pico, and files starting with "Voltex Jumbo" are for Voltex Jumbo.
+
+* For Voltex Pico, files with `_Insert` in their names means it's for heatset inserts. For Voltex Jumbo, there's only heatset insert version.
+* For Voltex Jumbo, stabilizer for main BT buttons can either be 2U or 3U, that's why you see file names with `_2U` or `_3U` in them. 3U is strongly recommended for much better feel.
 
 #### 2x Knob Parts
 * Knob: `Production\3DPrint\* - Knob.stl`, clear, semi-transparent. Print it upside down. 
@@ -172,16 +198,28 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
 #### Other components needed
 * 6x **M2.5\*(14mm-16mm) screws** for fixing the magnet seat to the knob.
 * 8x **M2\*6mm screws** for fixing the bearing (bearing fixer to the wing cover).
-* 6x **M2\*8mm screws** for fixing wing bases to the wing cover, **M2\*6mm** if using heatset inserts.
-* 12x **M3\*(4mm-5mm) screws** for fixing the PCB to the base parts.
-* 10x **M3\*8mm screws** for fixing the base, wing base, support and the panel. **M3\*6mm** if using heatset inserts.
 * 2x 6702zz (15x21x4mm) bearings for the knobs.
-* 2x round magnets, 5mm diameter, 1.5mm or 2mm tall, MUST be radially/diametrically magnetized (N-S poles on the curved side).
+* 2x round magnets, 5mm diameter, 2mm tall, MUST be radially/diametrically magnetized (N-S poles on the curved side).
 * Some thin tape (such as acetate tape or high-temp teflon tape) to fix the magnets in place.
 * Some 10mm diameter silicone anti-slip pads for the bottom.  
 * Some 1mm thick soft felt sheet for damping the knobs.
 
-#### Steps
+##### Voltex Pico only
+* 6x **M2\*8mm screws** for fixing wing bases to the wing cover, **M2\*6mm** if using heatset inserts.
+* 12x **M3\*(4mm-5mm) screws** for fixing the PCB to the base parts.
+* 10x **M3\*8mm screws** for fixing the base, wing base, support and the panel. **M3\*6mm** if using heatset inserts.
+* 6x **M2\*3mm\*3mm inserts** for the wings (heatset build only).
+* 12x **M3\*4mm\*4mm inserts**, 10 for the panel and 2 for wings (heatset build only).  
+
+#### Voltex Jumbo only
+* 22x **M2.5\*4mm\*3.5mm inserts (length\*outer diameter)** for the base.
+* 10x **M2\*3mm\*3mm heatset inserts** for the wings.
+* 14x **M2.5\*(10-11mm) flat head (countersunk) screws** for fixing panels to the bases.
+* 8x **M2.5\*6mm screws** for fixing the support to the base.
+* 10x **M2\*8mm screws** for fixing wings, screw from bottom side.
+* 2x silicone tubes, **inner diameter 25mm, outer diameter 27mm**, cut into **53mm long**, serve as a hinge.
+
+#### Steps for Voltex Pico
 1. We'll start with the bearings. They should be inserted into wing parts. Fix them using bearing fixers and M2\*6mm screws.  
    <img src="doc/assemble_bearings.jpg" width="60%">
 
@@ -204,6 +242,13 @@ The Voltex Pico uses this new stabilizing mechanism for the big BT buttons as we
    
 8. Congratulations! You have finished the assembly.  
    <img src="doc/assemble_done.jpg" width="80%">
+
+### Notes for Voltex Jumbo
+* You need to do left and right sides.
+* Screw holes at bottom side for the wings are sealed with thin layer (it's for better screw hole quality), just poke a hole through it using sharp object.
+* You need to punch holes for the hinges. Print the helper tool `Voltex Jumbo - Hinge Hole Helper.stl`, it will help you align the holes accurately.
+* Cables connecting left and right sides should go through the hinge tube. Extra length of the cables should be managed properly at both ends.
+* Hinge tube should be hooked to the columns on both sides before assembly support part.
 
 #### Caution
 * Each 3D printer and filament has its own tolerance. If you find the holes on the keycap are too tight, use a needle or knife to enlarge them a little bit.
